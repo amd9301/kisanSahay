@@ -19,8 +19,41 @@ class _LoginState extends State<Login> {
   String _email = '';
   String _password = '';
   bool _obscureText = true;
-  bool _isLoggedIn = false;
+  bool _isLoggedIn=false;
 
+  GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+  Future<void> signIn() async {
+    // Trigger the authentication flow
+    try{
+      UserCredential user= await _auth.signInWithEmailAndPassword(email: _email, password: _password);
+      print(user);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
+    }
+    catch(e){
+      print(e.toString());
+    }
+
+  }
   checkAuthentication() async
   {
     _auth.authStateChanges().listen((User? user) {
@@ -41,35 +74,6 @@ class _LoginState extends State<Login> {
       this.checkAuthentication();
     }
   }
-
-  login(String email1, String password1) async {
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(
-          email: email1,
-          password: password1
-
-      );
-      if (await FirebaseAuth.instance.currentUser != null) {
-        // signed in
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => HomePage()),
-        );
-      } else {
-            print('Not signed in!');
-      }
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      }
-    }
-
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -104,18 +108,18 @@ class _LoginState extends State<Login> {
                               labelText: 'Email',
                               prefixIcon: Icon(Icons.email)
                           ),
-                          validator: (input) {
-                            if (input == null || input
-                                .trim()
-                                .isEmpty)
-                              return 'Enter Email';
-                            if (!RegExp(r'\S+@\S+\.\S+').hasMatch(input)) {
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return 'Please enter your email address';
+                            }
+                            // Check if the entered email has the right format
+                            if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
                               return 'Please enter a valid email address';
                             }
+                            // Return null if the entered email is valid
                             return null;
                           },
-
-                          onChanged: (input) => _email = input,
+                          onChanged: (value) => _email = value,
 
                         ),
                       ),
@@ -130,25 +134,18 @@ class _LoginState extends State<Login> {
                           val!.length < 6 || val == null
                               ? 'Password too short.'
                               : null,
-                          onSaved: (val) => _password = val!,
+                          onChanged: (val) => _password = val,
                           obscureText: _obscureText,
                         ),
                       ),
                       SizedBox(height: 20.0),
                       ElevatedButton(
+                          onPressed:signIn,
                           style: ElevatedButton.styleFrom(primary: Colors
                               .green, shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(20.0),
 
                           ),),
-                          onPressed: () =>
-                          {
-                            //login(_email, _password),{
-                            Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
-                            )
-                          },
 
                           child: Text('SUBMIT', style: TextStyle(
                               fontSize: 20.0,
