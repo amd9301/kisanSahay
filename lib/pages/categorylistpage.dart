@@ -60,7 +60,11 @@ class CategoryListPage extends StatelessWidget {
                           CategoryCard(
                             category:categories[index],
                             onCardClick:(){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> SelectedCategoryPage(selectedCategory:  Utils.getMockedCategories()[0],)));
+                              Navigator.push(context, MaterialPageRoute(
+                                  builder: (context)=>
+                                      SelectedCategoryPage(
+                                        selectedCategory:
+                                       this.categories[index],)));
                             },
 
                           );

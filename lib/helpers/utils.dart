@@ -12,37 +12,37 @@ class Utils{
             Category(
                 color:Colors.black,
                 name:"Cultivator",
-                imgName:"cultivators",
+                imgName:"cultivator1",
                 subCategories:[]
             ),
             Category(
                 color:Colors.black,
                 name:"Cultivator",
-                imgName:"cultivators",
+                imgName:"cultivator2",
                 subCategories:[]
             ),
             Category(
                 color:Colors.black,
                 name:"Cultivator",
-                imgName:"cultivators",
+                imgName:"cultivator3",
                 subCategories:[]
             ),
             Category(
                 color:Colors.black,
                 name:"Cultivator",
-                imgName:"cultivators",
+                imgName:"cultivator4",
                 subCategories:[]
             ),
             Category(
                 color:Colors.black,
                 name:"Cultivator",
-                imgName:"cultivators",
+                imgName:"cultivator5",
                 subCategories:[]
             ),
             Category(
                 color:Colors.black,
                 name:"Cultivator",
-                imgName:"cultivators",
+                imgName:"cultivator1",
                 subCategories:[]
             ),
 
