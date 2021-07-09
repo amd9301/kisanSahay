@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kisan_sahay/pages/cart.dart';
 import 'package:kisan_sahay/pages/categorylistpage.dart';
 import 'package:kisan_sahay/pages/Donate.dart';
 import 'package:kisan_sahay/pages/Predonate.dart';
@@ -19,7 +20,56 @@ class _HomePageState extends State<HomePage> {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.white,
-        drawer: Drawer() ,
+        drawer: Drawer(
+          child: ListView(
+            children: [
+              new UserAccountsDrawerHeader(accountName: new Text('User Name'),
+                accountEmail: new Text('test@gmail.com'),
+                currentAccountPicture: new CircleAvatar(
+                  backgroundImage: new NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_mCyTdVerlZkBa4mPc5wDWUXmbGcIuxaN-1FJ1kJ8BS6rq7vrD1B4Rm33wgyRRTFccwQ&usqp=CAU'),
+                ),
+              ),
+              new ListTile(
+                title: new Text('Donate Machinery'),
+                onTap: () {
+                  Navigator.push(context,
+                  new MaterialPageRoute(builder: (BuildContext context)=> new Disp())
+                  );
+                },
+              ),
+              new ListTile(
+                title: new Text('Need Machinery'),
+                onTap: () {
+                  Navigator.push(context,
+                      new MaterialPageRoute(builder: (BuildContext context)=> new CategoryListPage())
+                  );
+                },
+              ),
+              new ListTile(
+                title: new Text('Cart'),
+                onTap: () {
+                  Navigator.push(context,
+                      new MaterialPageRoute(builder: (BuildContext context)=> new Cart())
+                  );
+                },
+              ),
+              new ListTile(
+                title: new Text('Your Orders'),
+                onTap: () {},
+              ),
+              new ListTile(
+                title: new Text('Settings'),
+                onTap: () {},
+              ),
+              new ListTile(
+                title: new Text('Sign Out'),
+                onTap: () {},
+              ),
+            ],
+          ),
+
+        ),
+
         appBar:  AppBar(
           title: Text('Kisan Sahay',
             textAlign: TextAlign.left,
@@ -35,7 +85,14 @@ class _HomePageState extends State<HomePage> {
               margin: EdgeInsets.only(right: 10),
               padding: EdgeInsets.all(10),
               child: ClipOval(
-                child: Icon(Icons.supervised_user_circle_rounded),
+                child: IconButton
+                  (
+                    icon: Icon(Icons.shopping_cart),
+                    onPressed: () {
+                      Navigator.push(context,
+                          new MaterialPageRoute(builder: (BuildContext context)=> new Cart())
+                      );
+                    },),
               ),
             )
           ],
@@ -116,17 +173,11 @@ class _HomePageState extends State<HomePage> {
 
                   ],
                 ),
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child:
-                    CategoryBottomBar(),
-                  )
+
              ]
               ),
-
-
+          //Add bottom nav bar her
+          //...
 
           ),
 

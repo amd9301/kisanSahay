@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kisan_sahay/widgets/titlebar.dart';
 import 'package:path/path.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:intl/intl.dart';
@@ -85,103 +86,109 @@ class _DonateState extends State<Donate> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text('Kisan Sahay'),
-        centerTitle: true,
-        backgroundColor: Colors.lightBlueAccent,
-      ),
+      appBar:TitleBar(),
       body: Padding(
         padding: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 0.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "Donate the "+typename+" you Have",
+                style: TextStyle(
+                  color: Colors.pink,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
 
-            Text(
-              "Donate the "+typename+" you HAve",
-              style: TextStyle(
-                color: Colors.pink,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-
-              ),
-            ),
-        (done != false)
-            ? Image.file(_imagefile,
-          width: double.infinity,
-        height: 200,
-        fit: BoxFit.fill,)
-                : Placeholder(fallbackHeight: 200.0,fallbackWidth: 100.0,),
-            SizedBox(height: 30.0,),
-            ElevatedButton(
-              child: Text('choose image'),
-              onPressed: pickImage,
-            ),
-            Container(
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-
-                    Container(
-
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            labelText: 'Cost per day',
-                            prefixIcon: Icon(Icons.money)
-                        ),
-                        keyboardType: TextInputType.number,
-                        inputFormatters:[
-                          FilteringTextInputFormatter.digitsOnly
-                        ], // Only numbers can be entered
-                        validator: (value) {
-                          if (value!.trim().isEmpty) {
-                            return 'Please enter cost per day';
-                          }
-
-                          // Return null if the entered email is valid
-                          return null;
-                        },
-                        onChanged: (value) => cost = int.parse(value),
-
-                      ),
-                    ),
-
-                    SizedBox(height: 20.0),
-                    ElevatedButton(
-                        onPressed:(){submit(context);},
-                        style: ElevatedButton.styleFrom(primary: Colors
-                            .green, shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(20.0),
-
-                        ),),
-
-                        child: Text('submit', style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
-                        ),)),
-                    ElevatedButton(
-                        onPressed:(){
-                          Navigator.pop(context);
-                        },
-                        style: ElevatedButton.styleFrom(primary: Colors
-                            .green, shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(20.0),
-
-                        ),),
-
-                        child: Text('cancel', style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
-                        ),))
-                  ],
                 ),
               ),
-            ),
+          SizedBox(height: 10,),
+          (done != false)
+              ? Image.file(_imagefile,
+            width: double.infinity,
+          height: 200,
+          fit: BoxFit.fill,)
+                  : Placeholder(fallbackHeight: 200.0,fallbackWidth: 100.0,),
+              SizedBox(height: 30.0,),
+              ElevatedButton(
+                child: Text('choose image'),
+                onPressed: pickImage,
+              ),
+              Container(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
 
+                      Container(
+
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                              labelText: 'Cost per day',
+                              prefixIcon: Icon(Icons.money)
+                          ),
+                          keyboardType: TextInputType.number,
+                          inputFormatters:[
+                            FilteringTextInputFormatter.digitsOnly
+                          ], // Only numbers can be entered
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return 'Please enter cost per day';
+                            }
+
+                            // Return null if the entered email is valid
+                            return null;
+                          },
+                          onChanged: (value) => cost = int.parse(value),
+
+                        ),
+                      ),
+
+                      SizedBox(height: 20.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children:[
+                          ElevatedButton(
+                              onPressed:(){
+                                Navigator.pop(context);
+                              },
+                              style: ElevatedButton.styleFrom(primary: Colors
+                                  .green, shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(20.0),
+
+                              ),),
+
+                              child: Text('Cancel', style: TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white
+                              ),)),
+                          SizedBox(width: 60,),
+                          ElevatedButton(
+                            onPressed:(){submit(context);},
+                            style: ElevatedButton.styleFrom(primary: Colors
+                                .green, shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(20.0),
+
+                            ),),
+
+                            child: Text('Submit', style: TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white
+                            ),)),
+                    ],
+                  ),
 
           ],
+                ),
+              ),
+
+    )
+            ],
+
+          ),
         ),
       ),
     );

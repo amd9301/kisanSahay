@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.lightBlueAccent
       ),
       home: Start(),
+      //home: ,
       //home: SelectedCategoryPage(selectedCategory: Utils.getMockedCategories()[0],),
       /*home: DetailsPage(
         subCategory: Utils.getMockedCategories()[0].subCategories[0],

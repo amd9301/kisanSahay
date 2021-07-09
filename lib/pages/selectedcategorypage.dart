@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kisan_sahay/models/category.dart';
+import 'package:kisan_sahay/models/subcategory.dart';
+import 'package:kisan_sahay/models/subcategory.dart';
 import 'package:kisan_sahay/pages/details.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
 
@@ -9,6 +11,7 @@ SelectedCategoryPage({required this.selectedCategory}){}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: TitleBar(),
       body: Container(
      child: Column(
