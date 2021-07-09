@@ -2,6 +2,8 @@
 
 A new Flutter application.
 
+## This is a mobile application developed for sharing machinery among small farmers.
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
