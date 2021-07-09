@@ -43,7 +43,7 @@ SelectedCategoryPage({required this.selectedCategory}){}
                child: Column(
                  children: [
                    ClipRRect(
-                     borderRadius: BorderRadius.circular(10.0),
+                     borderRadius: BorderRadius.circular(30.0),
                      child: Image.asset('assets/images/'+this.selectedCategory.subCategories[index].imgName+'.png',
                      fit: BoxFit.cover,width: 120,height: 120,
                      ),
