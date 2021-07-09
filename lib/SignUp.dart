@@ -53,10 +53,10 @@ class _SignUpState extends State<SignUp> {
 
       });
       // print(users.id.)
-      _auth.signOut();
+      // _auth.signOut();
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Login()),
+        MaterialPageRoute(builder: (context) => HomePage()),
       );
     }
   }

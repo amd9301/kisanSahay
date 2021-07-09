@@ -97,7 +97,7 @@ class _DonateState extends State<Donate> {
           children: [
 
             Text(
-              "Donate the equipment you HAve",
+              "Donate the "+typename+" you HAve",
               style: TextStyle(
                 color: Colors.pink,
                 fontSize: 20,
@@ -155,7 +155,22 @@ class _DonateState extends State<Donate> {
 
                         ),),
 
-                        child: Text('SUBMIT', style: TextStyle(
+                        child: Text('submit', style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white
+                        ),)),
+                    ElevatedButton(
+                        onPressed:(){
+                          Navigator.pop(context);
+                        },
+                        style: ElevatedButton.styleFrom(primary: Colors
+                            .green, shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(20.0),
+
+                        ),),
+
+                        child: Text('cancel', style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.white
