@@ -22,7 +22,7 @@ class CategoryBottomBar extends StatelessWidget {
           ClipOval(
             child: Material(
               child: IconButton(
-                icon: Icon(Icons.favorite, color: Colors.green[600]),
+                icon: Icon(Icons.favorite_rounded, color: Colors.green[600]),
                 onPressed: () {},
               ),
             ),

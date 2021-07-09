@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:kisan_sahay/helpers/utils.dart';
 import 'package:kisan_sahay/pages/categorylistpage.dart';
 import 'package:duration/duration.dart';
+import 'package:kisan_sahay/pages/details.dart';
 import 'package:kisan_sahay/pages/selectedcategorypage.dart';
 import 'Login.dart';
 import 'Start.dart';
@@ -27,7 +28,9 @@ class MyApp extends StatelessWidget {
       ),
       home: Start(),
       //home: SelectedCategoryPage(selectedCategory: Utils.getMockedCategories()[0],),
-
+      /*home: DetailsPage(
+        subCategory: Utils.getMockedCategories()[0].subCategories[0],
+      ),*/
     );
   }
 }
