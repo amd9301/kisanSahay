@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kisan_sahay/pages/categorylistpage.dart';
+import 'package:kisan_sahay/pages/Donate.dart';
 import 'package:kisan_sahay/widgets/categorybottombar.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
 
@@ -102,7 +103,10 @@ class _HomePageState extends State<HomePage> {
                             onPrimary: Colors.white, // foreground
                           ),
                           child: Text("Donate Machinery", style: TextStyle(fontSize: 20),),
-                          onPressed: () {},
+                          onPressed: () {Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Donate(typename: "Tractor")),
+                          );},
 
                         ),
 
