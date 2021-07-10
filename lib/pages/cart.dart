@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:kisan_sahay/HomePage.dart';
 import 'package:kisan_sahay/pages/categorylistpage.dart';
+import 'package:kisan_sahay/pages/showcart.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
-
+import 'package:kisan_sahay/widgets/categorycard.dart';
+import 'package:kisan_sahay/widgets/categorybottombar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'Predonate.dart';
 
 class Cart extends StatefulWidget {
@@ -13,8 +17,10 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: TitleBar(),
       drawer: Drawer(
@@ -67,11 +73,73 @@ class _CartState extends State<Cart> {
         ),
 
       ),
-      body: Center(
-        child: Container(
-          child: Text('Cart Page'),
-        ),
-      ),
+        body :Container(
+          child: Stack(
+              children:[
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 10.0,bottom: 10.0),
+                      child: Text('Your cart',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                        ),),
+                    ),
+
+                    Expanded(
+                        child: StreamBuilder<QuerySnapshot>(
+                            stream: FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser!.uid).collection('cart').snapshots(),
+                            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (snapshot.hasError) {
+                                return Text('Something went wrong');
+                              }
+
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return Center(child: CircularProgressIndicator(strokeWidth: 5,color: Colors.pink,),);
+                              }
+                              return ListView.builder(itemCount : snapshot.data!.docs.length,
+                                  padding: EdgeInsets.only(bottom: 60),
+                                  itemBuilder: (BuildContext ctx,i){
+                                    return
+                                      CategoryCard(
+                                        url:snapshot.data!.docs.elementAt(i)['dowurl'],
+                                        name: snapshot.data!.docs.elementAt(i)['typename'],
+                                        onCardClick:(){
+                                          Navigator.push(context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Showcart(
+                                                        typename:snapshot.data!.docs.elementAt(i)['typename'],
+                                                        id: snapshot.data!.docs[i].id,
+                                                        url: snapshot.data!.docs.elementAt(i)['dowurl'],
+                                                        cost: snapshot.data!.docs.elementAt(i)['cost'].toString(),
+                                                      )
+                                              )
+                                          );
+                                        },
+
+                                      );
+                                  }
+                              );
+                            }
+                        )
+                    )
+
+                  ],
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child:
+                  CategoryBottomBar(),
+                )
+              ]
+          ),
+        )
     );
   }
 }

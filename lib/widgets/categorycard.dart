@@ -26,7 +26,7 @@ class CategoryCard extends StatelessWidget {
                     loadingBuilder: (context, child, loadingProgress) {
                       if (loadingProgress == null) return child;
 
-                      return Center(child: CircularProgressIndicator());
+                      return Center(child:CircularProgressIndicator(color: Colors.green,));
                     },
                     fit: BoxFit.cover,
                   ),
