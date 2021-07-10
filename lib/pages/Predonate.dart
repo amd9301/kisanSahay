@@ -23,7 +23,8 @@ class _DispState extends State<Disp> {
 
       appBar: TitleBar(),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),          child:
+        padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
+        child:
           StreamBuilder<QuerySnapshot>(
                   stream: _equipStream,
                   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {

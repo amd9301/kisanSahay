@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:kisan_sahay/models/category.dart';
 
 class CategoryCard extends StatelessWidget {
-   Category category;
-   Function onCardClick;
+  String url;
+  String name;
+  Function onCardClick;
 
-  CategoryCard({required this.category,required this.onCardClick});
+  CategoryCard({required this.url,required this.name,required this.onCardClick});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -20,8 +21,13 @@ class CategoryCard extends StatelessWidget {
             Positioned.fill(
                 child: ClipRRect(
                   borderRadius:BorderRadius.circular(20),
-                  child: Image.asset(
-                    'assets/images/'+this.category.imgName+'.jpg',
+                  child: Image.network(
+                    url,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+
+                      return Center(child: CircularProgressIndicator());
+                    },
                     fit: BoxFit.cover,
                   ),
                 )
@@ -55,7 +61,7 @@ class CategoryCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      this.category.name,
+                      this.name,
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 25

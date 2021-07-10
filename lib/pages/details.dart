@@ -2,18 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
 import 'package:kisan_sahay/models/category.dart';
 import 'package:kisan_sahay/models/subcategory.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class DetailsPage extends StatefulWidget {
-   Category subCategory;
-   DetailsPage({required this.subCategory});
+  final   String id ;
+  final   String url ;
+  final String typename ;
+  final String cost ;
+  const DetailsPage({Key? key,required this.typename,required this.id,required this.url,required this.cost}) : super(key: key);
+
   @override
-  _DetailsPageState createState() => _DetailsPageState();
+  _DetailsPageState createState() => _DetailsPageState(id,typename,url,cost);
 }
 
 class _DetailsPageState extends State<DetailsPage> {
 
-
+  String id ;
+  String url ;
+  String cost ;
+  String typename ;
+  _DetailsPageState(this.id,this.typename,this.url,this.cost);
   Widget build(BuildContext context) {
 
+    // String url= await ;
 
     return Scaffold(
       appBar: TitleBar(),
@@ -30,7 +41,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     height: 300,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage('assets/images/'+widget.subCategory.imgName+'.png'),
+                            image: NetworkImage(url),
                           fit: BoxFit.cover,
                         )
                     ),
@@ -65,7 +76,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
 
-                                            Text('Machinery Type',
+                                            Text(typename,
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 20
@@ -77,10 +88,10 @@ class _DetailsPageState extends State<DetailsPage> {
                                          decoration:
                                          BoxDecoration
                                            (
-                                              color: widget.subCategory.color,
+                                              color: Colors.pink,
                                              borderRadius: BorderRadius.circular(20),
                                            ),
-                                             child:Text('₹1000/per day',
+                                             child:Text(cost+' per day',
                                              style: TextStyle(
                                                   fontSize: 20,
                                                   color: Colors.white,
