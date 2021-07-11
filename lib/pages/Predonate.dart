@@ -24,8 +24,21 @@ class _DispState extends State<Disp> {
       appBar: TitleBar(),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
-        child:
-          StreamBuilder<QuerySnapshot>(
+        child:Column(
+        children:[
+          Text(
+            "Choose what to donate",
+            style: TextStyle(
+              color: Colors.orange,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+
+            ),
+          ),
+
+          SizedBox(height: 20),
+         Expanded(child:
+         StreamBuilder<QuerySnapshot>(
                   stream: _equipStream,
                   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) {
@@ -34,7 +47,7 @@ class _DispState extends State<Disp> {
 
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator(
-                        backgroundColor: Colors.grey,
+                        // backgroundColor: Colors.grey,
                         strokeWidth: 6,color: Colors.blue,),);
                     }
 
@@ -43,7 +56,7 @@ class _DispState extends State<Disp> {
                       return(
                       Card(
                         color: Colors.green[200],
-                        margin: EdgeInsets.fromLTRB(20,10,20,11),
+                        margin: EdgeInsets.fromLTRB(50,10,50,11),
                       child: Padding(
                         padding: EdgeInsets.all(6),
                         child: ElevatedButton(
@@ -51,7 +64,7 @@ class _DispState extends State<Disp> {
                           style: TextStyle(fontSize: 24),
                           ),
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.green[400],
+                            primary: Colors.pink,
                             padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                             shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(10.0),
@@ -71,6 +84,9 @@ class _DispState extends State<Disp> {
                     },);
                   },
                 ),
+         )
+        ]
+        )
 
 
               ),

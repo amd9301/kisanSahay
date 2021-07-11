@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
-import 'package:kisan_sahay/models/category.dart';
+import 'package:kisan_sahay/pages/cart.dart';
+import 'package:kisan_sahay/pages/Payment.dart';
 import 'package:kisan_sahay/models/subcategory.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DetailsPage extends StatefulWidget {
   final   String id ;
@@ -22,6 +24,18 @@ class _DetailsPageState extends State<DetailsPage> {
   String cost ;
   String typename ;
   _DetailsPageState(this.id,this.typename,this.url,this.cost);
+
+  Future addto() async{
+    await FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).collection("cart").doc(id).set(
+        {'dowurl':url,'cost':cost,'typename':typename});
+    Navigator.push(context,
+        MaterialPageRoute(
+            builder: (context) =>
+                Cart()
+        )
+    );
+  }
+  @override
   Widget build(BuildContext context) {
 
     // String url= await ;
@@ -129,7 +143,14 @@ class _DetailsPageState extends State<DetailsPage> {
                         child: Row(
                           children: [
                             ElevatedButton(
-                                onPressed:(){},
+                                onPressed:(){
+                                  Navigator.push(context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              PayPage()
+                                      )
+                                  );
+                                },
                                 style: ElevatedButton.styleFrom(primary: Colors
                                     .green, shape: new RoundedRectangleBorder(
                                   borderRadius: new BorderRadius.circular(20.0),
@@ -144,7 +165,7 @@ class _DetailsPageState extends State<DetailsPage> {
                             ),
                             SizedBox(width: 50,),
                             ElevatedButton(
-                                onPressed:(){},
+                                onPressed:addto,
                                 style: ElevatedButton.styleFrom(primary: Colors
                                     .green, shape: new RoundedRectangleBorder(
                                   borderRadius: new BorderRadius.circular(20.0),

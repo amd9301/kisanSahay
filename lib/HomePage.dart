@@ -2,19 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:kisan_sahay/pages/cart.dart';
 import 'package:kisan_sahay/pages/categorylistpage.dart';
 import 'package:kisan_sahay/pages/Donate.dart';
+import 'package:kisan_sahay/pages/Personal.dart';
 import 'package:kisan_sahay/pages/Predonate.dart';
+import 'package:kisan_sahay/Login.dart';
 import 'package:kisan_sahay/widgets/categorybottombar.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'Need.dart';
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  // final String url;
+  const HomePage({Key? key,}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  User? user =FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,11 +30,19 @@ class _HomePageState extends State<HomePage> {
         drawer: Drawer(
           child: ListView(
             children: [
-              new UserAccountsDrawerHeader(accountName: new Text('User Name'),
-                accountEmail: new Text('test@gmail.com'),
-                currentAccountPicture: new CircleAvatar(
-                  backgroundImage: new NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_mCyTdVerlZkBa4mPc5wDWUXmbGcIuxaN-1FJ1kJ8BS6rq7vrD1B4Rm33wgyRRTFccwQ&usqp=CAU'),
-                ),
+              new UserAccountsDrawerHeader(accountName: new Text(user!.displayName.toString()),
+                accountEmail: new Text(user!.email.toString()),
+                currentAccountPicture:         GestureDetector(
+                  onTap: (){
+                    Navigator.push(context,
+                        new MaterialPageRoute(builder: (BuildContext context)=> new PersonalPage(
+                          url:user!.photoURL.toString(),
+                        ))
+                    );
+                  },
+                  child: CircleAvatar(
+                  backgroundImage:  NetworkImage(FirebaseAuth.instance.currentUser!.photoURL.toString()),
+                ),)
               ),
               new ListTile(
                 title: new Text('Donate Machinery'),
@@ -71,16 +86,15 @@ class _HomePageState extends State<HomePage> {
         ),
 
         appBar:  AppBar(
-          title: Text('   Kisan Sahay',
-            textAlign: TextAlign.center,
+          title: Text('Kisan Sahay',
+            textAlign: TextAlign.left,
             style: TextStyle(
-              color: Colors.green[600],
-              fontSize: 30.0,
+              color: Colors.white,
+              fontSize: 25.0,
             ),),
-          backgroundColor: Colors.transparent,
-          iconTheme: IconThemeData(color:Colors.green[800], ),
-          elevation: 0.0,
-
+          backgroundColor: Colors.lightBlueAccent,
+          elevation: 1.0,
+          iconTheme: IconThemeData(color:Colors.white, ),
           actions: [
             Container(
               margin: EdgeInsets.only(right: 10),
@@ -88,12 +102,12 @@ class _HomePageState extends State<HomePage> {
               child: ClipOval(
                 child: IconButton
                   (
-                  icon: Icon(Icons.shopping_cart),
-                  onPressed: () {
-                    Navigator.push(context,
-                        new MaterialPageRoute(builder: (BuildContext context)=> new Cart())
-                    );
-                  },),
+                    icon: Icon(Icons.shopping_cart),
+                    onPressed: () {
+                      Navigator.push(context,
+                          new MaterialPageRoute(builder: (BuildContext context)=> new Cart())
+                      );
+                    },),
               ),
             )
           ],
@@ -104,26 +118,35 @@ class _HomePageState extends State<HomePage> {
                 children:[ Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-
-                    SizedBox(height: 40.0),
-                    Center(
-                      child: Image(
-                        image: AssetImage('assets/images/welcome.jpg'),
-                      ),
-                    ),
-                    //Divider(height: 6,),
-                    SizedBox(height: 30.0),
+                    SizedBox(height: 20,),
                     Text(
-                      "Select your action",
+                      "Hello! Welcome  ",
                       style: TextStyle(
-                        color: Colors.pink[300],
+                        color: Colors.green[900],
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
 
                       ),
                     ),
 
-                    SizedBox(height: 30),
+                    SizedBox(height: 20.0),
+                    Center(
+                      child: Image(
+                        image: AssetImage('assets/images/start.jpg'),
+                      ),
+                    ),
+                    SizedBox(height: 20.0),
+                    Text(
+                      "Select your action",
+                      style: TextStyle(
+                        color: Colors.pink,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+
+                      ),
+                    ),
+
+                    SizedBox(height: 20),
 
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -144,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                           );},
 
                         ),
-                        SizedBox(height: 15),
+                        SizedBox(height: 10),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(

@@ -3,7 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'HomePage.dart';
+import 'package:kisan_sahay/pages/verify.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -13,7 +15,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
+  bool loginfail =false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String _email = '';
@@ -41,25 +43,54 @@ class _LoginState extends State<Login> {
   }
   Future<void> signIn() async {
     // Trigger the authentication flow
-    try{
-      UserCredential user= await _auth.signInWithEmailAndPassword(email: _email, password: _password);
-      print(user);
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
+    try {
+      await _auth.signInWithEmailAndPassword(
+          email: _email, password: _password);
+
+      // if(_auth.currentUser!.emailVerified==true){
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
+      // }
+      // else{
+      //   try {
+      //     // await _auth.currentUser!.sendEmailVerification();
+      //     print("!!!!!");
+      //   } catch (e) {
+      //     print("An error occured while trying to send email        verification");
+      //     print(e);
+      //   }
+        setState(() {
+          // print("!@#**************************************");
+          loginfail = false;
+        });
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(builder: (context) => Verify()),
+      //   );
+      // }
     }
+
     catch(e){
-      print(e.toString());
+      setState(() {
+        print("!@#**************************************");
+        loginfail = true;
+      });
     }
+
+
+
 
   }
   checkAuthentication() async
   {
-    _auth.authStateChanges().listen((User? user) {
+    _auth.authStateChanges().listen((User? user) async {
       if (user == null) {
         print('User is currently signed out!');
       } else {
+
         print('User is signed in!');
         Navigator.push(
           context,
@@ -125,8 +156,9 @@ class _LoginState extends State<Login> {
                       ),
                       Container(
                         child: new TextFormField(
-                          decoration: const InputDecoration(
+                          decoration:  InputDecoration(
                               labelText: 'Password',
+                              errorText: loginfail ? 'email or password doesnt match' : null,
                               icon: const Padding(
                                   padding: const EdgeInsets.only(top: 15.0),
                                   child: const Icon(Icons.lock))),
@@ -138,6 +170,8 @@ class _LoginState extends State<Login> {
                           obscureText: _obscureText,
                         ),
                       ),
+
+
                       SizedBox(height: 20.0),
                       ElevatedButton(
                           onPressed:signIn,
