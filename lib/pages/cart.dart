@@ -69,7 +69,9 @@ class _CartState extends State<Cart> {
       ),
       body: Center(
         child: Container(
-          child: Text('Cart Page'),
+          child: Image(
+            image: AssetImage('assets/images/start.jpg'),
+          ),
         ),
       ),
     );

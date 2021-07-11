@@ -71,15 +71,16 @@ class _HomePageState extends State<HomePage> {
         ),
 
         appBar:  AppBar(
-          title: Text('Kisan Sahay',
-            textAlign: TextAlign.left,
+          title: Text('   Kisan Sahay',
+            textAlign: TextAlign.center,
             style: TextStyle(
-              color: Colors.white,
-              fontSize: 25.0,
+              color: Colors.green[600],
+              fontSize: 30.0,
             ),),
-          backgroundColor: Colors.lightBlueAccent,
-          elevation: 1.0,
-          iconTheme: IconThemeData(color:Colors.white, ),
+          backgroundColor: Colors.transparent,
+          iconTheme: IconThemeData(color:Colors.green[800], ),
+          elevation: 0.0,
+
           actions: [
             Container(
               margin: EdgeInsets.only(right: 10),
@@ -87,12 +88,12 @@ class _HomePageState extends State<HomePage> {
               child: ClipOval(
                 child: IconButton
                   (
-                    icon: Icon(Icons.shopping_cart),
-                    onPressed: () {
-                      Navigator.push(context,
-                          new MaterialPageRoute(builder: (BuildContext context)=> new Cart())
-                      );
-                    },),
+                  icon: Icon(Icons.shopping_cart),
+                  onPressed: () {
+                    Navigator.push(context,
+                        new MaterialPageRoute(builder: (BuildContext context)=> new Cart())
+                    );
+                  },),
               ),
             )
           ],
@@ -103,35 +104,26 @@ class _HomePageState extends State<HomePage> {
                 children:[ Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: 20,),
+
+                    SizedBox(height: 40.0),
+                    Center(
+                      child: Image(
+                        image: AssetImage('assets/images/welcome.jpg'),
+                      ),
+                    ),
+                    //Divider(height: 6,),
+                    SizedBox(height: 30.0),
                     Text(
-                      "Hello! Welcome  ",
+                      "Select your action",
                       style: TextStyle(
-                        color: Colors.green[900],
+                        color: Colors.pink[300],
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
 
                       ),
                     ),
 
-                    SizedBox(height: 20.0),
-                    Center(
-                      child: Image(
-                        image: AssetImage('assets/images/start.jpg'),
-                      ),
-                    ),
-                    SizedBox(height: 20.0),
-                    Text(
-                      "Select your action",
-                      style: TextStyle(
-                        color: Colors.pink,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-
-                      ),
-                    ),
-
-                    SizedBox(height: 20),
+                    SizedBox(height: 30),
 
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -152,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                           );},
 
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: 15),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(

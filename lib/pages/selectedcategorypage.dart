@@ -27,7 +27,7 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
     final Stream<QuerySnapshot> _equipStream = FirebaseFirestore.instance.collection('Equip').doc(typename).collection('items').snapshots();
 
     return Scaffold(
-
+  
         appBar: TitleBar(),
         body: Column(
           children: [
