@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'HomePage.dart';
+import 'package:kisan_sahay/pages/verify.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget {
@@ -43,11 +44,25 @@ class _LoginState extends State<Login> {
     // Trigger the authentication flow
     try{
       UserCredential user= await _auth.signInWithEmailAndPassword(email: _email, password: _password);
-      print(user);
+      // print(user);
+      if(user.user!.emailVerified==true){
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => HomePage()),
       );
+    }else{
+        try {
+          await _auth.currentUser!.sendEmailVerification();
+          print("!!!!!");
+        } catch (e) {
+          print("An error occured while trying to send email        verification");
+          print(e);
+        }
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Verify()),
+        );
+      }
     }
     catch(e){
       print(e.toString());

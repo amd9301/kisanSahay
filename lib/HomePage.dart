@@ -5,6 +5,7 @@ import 'package:kisan_sahay/pages/Donate.dart';
 import 'package:kisan_sahay/pages/Predonate.dart';
 import 'package:kisan_sahay/widgets/categorybottombar.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'Need.dart';
 class HomePage extends StatefulWidget {
@@ -17,7 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.white,
         drawer: Drawer(
@@ -117,7 +118,13 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(height: 20.0),
                     Center(
                       child: Image(
-                        image: AssetImage('assets/images/start.jpg'),
+                        image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/kisansahay-54fcf.appspot.com/o/start.jpg?alt=media&token=946d1ddf-6b77-4e00-b9c2-5d1cf34ac363",
+                        ),
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+
+                            return Center(child:CircularProgressIndicator(color: Colors.green,));
+                          }
                       ),
                     ),
                     SizedBox(height: 20.0),

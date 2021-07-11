@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kisan_sahay/HomePage.dart';
+import 'package:kisan_sahay/Login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geolocator/geolocator.dart';
 import 'Login.dart';
@@ -53,10 +54,17 @@ class _SignUpState extends State<SignUp> {
 
       });
       // print(users.id.)
-      // _auth.signOut();
+      try {
+        await _auth.currentUser!.sendEmailVerification();
+      } catch (e) {
+        print("An error occured while trying to send email        verification");
+        print(e);
+      }
+      _auth.signOut();
+
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => Login()),
       );
     }
   }
