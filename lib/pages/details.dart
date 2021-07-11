@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
 import 'package:kisan_sahay/pages/cart.dart';
+import 'package:kisan_sahay/pages/Payment.dart';
 import 'package:kisan_sahay/models/subcategory.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,6 +35,7 @@ class _DetailsPageState extends State<DetailsPage> {
         )
     );
   }
+  @override
   Widget build(BuildContext context) {
 
     // String url= await ;
@@ -141,7 +143,14 @@ class _DetailsPageState extends State<DetailsPage> {
                         child: Row(
                           children: [
                             ElevatedButton(
-                                onPressed:(){},
+                                onPressed:(){
+                                  Navigator.push(context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              PayPage()
+                                      )
+                                  );
+                                },
                                 style: ElevatedButton.styleFrom(primary: Colors
                                     .green, shape: new RoundedRectangleBorder(
                                   borderRadius: new BorderRadius.circular(20.0),

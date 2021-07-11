@@ -43,6 +43,7 @@ class _SignUpState extends State<SignUp> {
       UserCredential user= await _auth.createUserWithEmailAndPassword(email: _userEmail,password: _password);
       CollectionReference users = FirebaseFirestore.instance.collection('Users');
       _auth.currentUser!.updateDisplayName(_userName);
+      _auth.currentUser!.updatePhotoURL("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_mCyTdVerlZkBa4mPc5wDWUXmbGcIuxaN-1FJ1kJ8BS6rq7vrD1B4Rm33wgyRRTFccwQ&usqp=CAU");
       // await users.doc(_auth.currentUser!.uid).collection("uploads").doc("1").set(
       //     {"image":"11"});
       await users.doc(_auth.currentUser!.uid).set({

@@ -2,33 +2,47 @@ import 'package:flutter/material.dart';
 import 'package:kisan_sahay/pages/cart.dart';
 import 'package:kisan_sahay/pages/categorylistpage.dart';
 import 'package:kisan_sahay/pages/Donate.dart';
+import 'package:kisan_sahay/pages/Personal.dart';
 import 'package:kisan_sahay/pages/Predonate.dart';
+import 'package:kisan_sahay/Login.dart';
 import 'package:kisan_sahay/widgets/categorybottombar.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'Need.dart';
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  // final String url;
+  const HomePage({Key? key,}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  User? user =FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
-     return MaterialApp(
+    return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.white,
         drawer: Drawer(
           child: ListView(
             children: [
-              new UserAccountsDrawerHeader(accountName: new Text('User Name'),
-                accountEmail: new Text('test@gmail.com'),
-                currentAccountPicture: new CircleAvatar(
-                  backgroundImage: new NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_mCyTdVerlZkBa4mPc5wDWUXmbGcIuxaN-1FJ1kJ8BS6rq7vrD1B4Rm33wgyRRTFccwQ&usqp=CAU'),
-                ),
+              new UserAccountsDrawerHeader(accountName: new Text(user!.displayName.toString()),
+                accountEmail: new Text(user!.email.toString()),
+                currentAccountPicture:         GestureDetector(
+                  onTap: (){
+                    Navigator.push(context,
+                        new MaterialPageRoute(builder: (BuildContext context)=> new PersonalPage(
+                          url:user!.photoURL.toString(),
+                        ))
+                    );
+                  },
+                  child: CircleAvatar(
+                  backgroundImage:  NetworkImage(FirebaseAuth.instance.currentUser!.photoURL.toString()),
+                ),)
               ),
               new ListTile(
                 title: new Text('Donate Machinery'),
@@ -64,7 +78,11 @@ class _HomePageState extends State<HomePage> {
               ),
               new ListTile(
                 title: new Text('Sign Out'),
-                onTap: () {},
+                onTap: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: ( context)=> new Login()), (Route<dynamic> route) => false);
+
+                },
               ),
             ],
           ),

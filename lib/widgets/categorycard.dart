@@ -20,7 +20,7 @@ class CategoryCard extends StatelessWidget {
           children: [
             Positioned.fill(
                 child: ClipRRect(
-                  borderRadius:BorderRadius.circular(20),
+                  borderRadius:BorderRadius.circular(0),
                   child: Image.network(
                     url,
                     loadingBuilder: (context, child, loadingProgress) {
@@ -40,8 +40,8 @@ class CategoryCard extends StatelessWidget {
                 height: 120,
                 decoration: BoxDecoration(
                     borderRadius:BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
+                      bottomLeft: Radius.circular(0),
+                      bottomRight: Radius.circular(0),
                     ),
                     gradient: LinearGradient(
                         begin: Alignment.bottomCenter,

@@ -78,7 +78,7 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
                         child: Column(
                           children: [
                             ClipRRect(
-                              borderRadius: BorderRadius.circular(30.0),
+                              borderRadius: BorderRadius.circular(10.0),
                               child: Image.network(snapshot.data!.docs.elementAt(i)['dowpath'],
                                 fit: BoxFit.cover,width: 120,height: 120,
                               ),
