@@ -19,7 +19,8 @@ class Donate extends StatefulWidget {
   _DonateState createState() => _DonateState(typename);
 }
 
-class _DonateState extends State<Donate> {
+class _DonateState extends State<Donate>
+{
   String typename ;
   _DonateState(this.typename);
   String _imageurl="";
@@ -94,7 +95,7 @@ class _DonateState extends State<Donate> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "Donate the "+typename+" you Have",
+                "Donate the "+typename+" you have",
                 style: TextStyle(
                   color: Colors.pink,
                   fontSize: 20,
@@ -107,8 +108,7 @@ class _DonateState extends State<Donate> {
               ? Image.file(_imagefile,
             width: double.infinity,
           height: 200,
-          fit: BoxFit.fill,)
-                  : Placeholder(fallbackHeight: 200.0,fallbackWidth: 100.0,),
+          fit: BoxFit.fill,) : Image.asset('assets/images/upload.png'),
               SizedBox(height: 30.0,),
               ElevatedButton(
                 child: Text('choose image'),

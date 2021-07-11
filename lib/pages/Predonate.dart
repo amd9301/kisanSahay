@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kisan_sahay/pages/Donate.dart';
 import 'package:kisan_sahay/widgets/categorybottombar.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
+
 class Disp extends StatefulWidget {
   const Disp({Key? key}) : super(key: key);
 
@@ -29,8 +30,8 @@ class _DispState extends State<Disp> {
           Text(
             "Choose what to donate",
             style: TextStyle(
-              color: Colors.orange,
-              fontSize: 20,
+              color: Colors.orange[800],
+              fontSize: 24,
               fontWeight: FontWeight.bold,
 
             ),
@@ -57,7 +58,7 @@ class _DispState extends State<Disp> {
                       Card(
                         color: Colors.green[200],
                         margin: EdgeInsets.fromLTRB(50,10,50,11),
-                      child: Padding(
+                       child: Padding(
                         padding: EdgeInsets.all(6),
                         child: ElevatedButton(
                           child: Text(snapshot.data!.docs[i].id,
@@ -65,7 +66,7 @@ class _DispState extends State<Disp> {
                           ),
                           style: ElevatedButton.styleFrom(
                             primary: Colors.pink,
-                            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                             shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(10.0),
 

@@ -100,9 +100,29 @@ class _CartState extends State<Cart> {
                               if (snapshot.connectionState == ConnectionState.waiting) {
                                 return Center(child: CircularProgressIndicator(strokeWidth: 5,color: Colors.pink,),);
                               }
+                              if(snapshot.data!.docs.length==0)
+                              {
+                                 return Container(
+                                   child:
+                                     Column(
+                                       children: [
+                                         SizedBox(height: 50,),
+                                         Image.asset('assets/images/emptyCart.png',colorBlendMode: BlendMode.lighten),
+                                         Text('Your Cart is Empty',style: TextStyle(
+                                             fontSize: 30,fontWeight: FontWeight.bold
+                                         ),),
+
+                                       ],
+                                     )
+                                 );
+                              }
+
                               return ListView.builder(itemCount : snapshot.data!.docs.length,
-                                  padding: EdgeInsets.only(bottom: 60),
+                                   //(itemCount==0?  return Text("Cart is Empty"))
+
+                              padding: EdgeInsets.only(bottom: 60),
                                   itemBuilder: (BuildContext ctx,i){
+
                                     return
                                       CategoryCard(
                                         url:snapshot.data!.docs.elementAt(i)['dowurl'],
@@ -130,13 +150,13 @@ class _CartState extends State<Cart> {
 
                   ],
                 ),
-                Positioned(
+               /* Positioned(
                   bottom: 0,
                   left: 0,
                   right: 0,
                   child:
                   CategoryBottomBar(),
-                )
+                )*/
               ]
           ),
         )

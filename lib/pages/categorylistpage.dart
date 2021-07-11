@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kisan_sahay/HomePage.dart';
 import 'package:kisan_sahay/helpers/utils.dart';
 import 'package:kisan_sahay/models/category.dart';
 import 'package:kisan_sahay/pages/selectedcategorypage.dart';
@@ -8,6 +10,10 @@ import 'package:kisan_sahay/widgets/categorybottombar.dart';
 import 'package:kisan_sahay/widgets/categorycard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'Personal.dart';
+import 'Predonate.dart';
+import 'cart.dart';
+
 class CategoryListPage extends StatelessWidget {
 
 
@@ -15,8 +21,67 @@ class CategoryListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    User? user =FirebaseAuth.instance.currentUser;
     return Scaffold(
-        drawer: Drawer(),
+        drawer: Drawer(
+          child: ListView(
+            children: [
+              new UserAccountsDrawerHeader(accountName: new Text(user!.displayName.toString()),
+                  accountEmail: new Text(user!.email.toString()),
+                  currentAccountPicture:         GestureDetector(
+                    onTap: (){
+                      Navigator.push(context,
+                          new MaterialPageRoute(builder: (BuildContext context)=> new PersonalPage(
+                            url:user!.photoURL.toString(),
+                          ))
+                      );
+                    },
+                    child: CircleAvatar(
+                      backgroundImage:  NetworkImage(FirebaseAuth.instance.currentUser!.photoURL.toString()),
+                    ),)
+              ),
+              new ListTile(
+                title: new Text('Home'),
+                onTap: () {
+                  Navigator.push(context,
+                      new MaterialPageRoute(builder: (BuildContext context)=> new HomePage())
+                  );
+                },
+              ),
+              new ListTile(
+                title: new Text('Donate Machinery'),
+                onTap: () {
+                  Navigator.push(context,
+                      new MaterialPageRoute(builder: (BuildContext context)=> new Disp())
+                  );
+                },
+              ),
+
+              new ListTile(
+                title: new Text('Cart'),
+                onTap: () {
+                  Navigator.push(context,
+                      new MaterialPageRoute(builder: (BuildContext context)=> new Cart())
+                  );
+                },
+              ),
+              new ListTile(
+                title: new Text('Your Orders'),
+                onTap: () {},
+              ),
+              new ListTile(
+                title: new Text('Settings'),
+                onTap: () {},
+              ),
+              new ListTile(
+                title: new Text('Sign Out'),
+                onTap: () {},
+              ),
+            ],
+          ),
+
+        ),
         appBar: AppBar(
           title: Text('Kisan Sahay',
             textAlign: TextAlign.center,
@@ -32,7 +97,7 @@ class CategoryListPage extends StatelessWidget {
               margin: EdgeInsets.only(right: 10),
               padding: EdgeInsets.all(10),
               child: ClipOval(
-                child: Icon(Icons.supervised_user_circle_rounded),
+                child: Icon(Icons.shopping_cart),
               ),
             )
           ],

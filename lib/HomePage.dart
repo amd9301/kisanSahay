@@ -119,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(height: 20,),
-                    Text(
+                  /*  Text(
                       "Hello! Welcome  ",
                       style: TextStyle(
                         color: Colors.green[900],
@@ -128,11 +128,11 @@ class _HomePageState extends State<HomePage> {
 
                       ),
                     ),
-
+*/
                     SizedBox(height: 20.0),
                     Center(
                       child: Image(
-                        image: AssetImage('assets/images/start.jpg'),
+                        image: AssetImage('assets/images/welcome.jpg'),
                       ),
                     ),
                     SizedBox(height: 20.0),
