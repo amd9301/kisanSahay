@@ -53,6 +53,9 @@ class _PersonalPageState extends State<PersonalPage> {
 
 
   Future submit(context) async {
+    if(done==false){
+      Navigator.pop(context);
+    }
 
     try {
       // String displayName=
@@ -150,10 +153,7 @@ class _PersonalPageState extends State<PersonalPage> {
                         alignment: Alignment.centerLeft,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: new TextFormField(
-                           // onChanged: (val) => _auth.currentUser!.displayName = val,
-                            //_auth.currentUser!.displayName.toString(),
-                          ),
+                          child: Text(_auth.currentUser!.displayName.toString(), style: TextStyle(color: Colors.white70),),
                         ),
                       ), decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(20)),

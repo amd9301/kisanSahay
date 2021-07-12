@@ -28,12 +28,12 @@ class CategoryListPage extends StatelessWidget {
           child: ListView(
             children: [
               new UserAccountsDrawerHeader(accountName: new Text(user!.displayName.toString()),
-                  accountEmail: new Text(user!.email.toString()),
+                  accountEmail: new Text(user.email.toString()),
                   currentAccountPicture:         GestureDetector(
                     onTap: (){
                       Navigator.push(context,
                           new MaterialPageRoute(builder: (BuildContext context)=> new PersonalPage(
-                            url:user!.photoURL.toString(),
+                            url:user.photoURL.toString(),
                           ))
                       );
                     },

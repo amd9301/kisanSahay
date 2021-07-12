@@ -40,6 +40,7 @@ class _SignUpState extends State<SignUp> {
       print(_password);
       print(_confirmPassword);
       _longitude= await get_locatio();
+      print(_longitude);
       UserCredential user= await _auth.createUserWithEmailAndPassword(email: _userEmail,password: _password);
       CollectionReference users = FirebaseFirestore.instance.collection('Users');
       _auth.currentUser!.updateDisplayName(_userName);

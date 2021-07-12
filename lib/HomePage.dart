@@ -24,25 +24,34 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    user!.reload();
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.white,
         drawer: Drawer(
           child: ListView(
             children: [
-              new UserAccountsDrawerHeader(accountName: new Text(user!.displayName.toString()),
+               UserAccountsDrawerHeader(accountName: new Text(user!.displayName.toString()),
                 accountEmail: new Text(user!.email.toString()),
                 currentAccountPicture:         GestureDetector(
-                  onTap: (){
-                    Navigator.push(context,
+                  onTap: () async {
+                    await Navigator.push(context,
                         new MaterialPageRoute(builder: (BuildContext context)=> new PersonalPage(
                           url:user!.photoURL.toString(),
                         ))
                     );
+                    setState(() {
+                      user=FirebaseAuth.instance.currentUser;
+                      print("!!!");
+                    });
                   },
+
                   child: CircleAvatar(
-                  backgroundImage:  NetworkImage(FirebaseAuth.instance.currentUser!.photoURL.toString()),
-                ),)
+                  foregroundImage:  NetworkImage(user!.photoURL.toString()),
+                    backgroundImage: AssetImage('assets/images/load1.png'),
+
+                ),
+                )
               ),
               new ListTile(
                 title: new Text('Donate Machinery'),
