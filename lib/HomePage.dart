@@ -47,6 +47,7 @@ class _HomePageState extends State<HomePage> {
                   },
 
                   child: CircleAvatar(
+                    radius: 35,
                   foregroundImage:  NetworkImage(user!.photoURL.toString()),
                     backgroundImage: AssetImage('assets/images/load1.png'),
 

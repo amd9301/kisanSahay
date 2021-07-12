@@ -49,7 +49,7 @@ class _LoginState extends State<Login> {
 
       // if(_auth.currentUser!.emailVerified==true){
 
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => HomePage()),
         );
@@ -63,7 +63,7 @@ class _LoginState extends State<Login> {
       //     print(e);
       //   }
         setState(() {
-          // print("!@#**************************************");
+          print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!@!");
           loginfail = false;
         });
       //   Navigator.push(
@@ -74,6 +74,7 @@ class _LoginState extends State<Login> {
     }
 
     catch(e){
+      print(e);
       setState(() {
         print("!@#**************************************");
         loginfail = true;
