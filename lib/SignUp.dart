@@ -25,6 +25,7 @@ class _SignUpState extends State<SignUp> {
   String _latitide = '';
   String _longitude = '';
   String _confirmPassword = '';
+  String _phoneNo = '';
   Future<String> get_locatio() async{
     Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     _latitide= position.latitude.toString();
@@ -52,6 +53,7 @@ class _SignUpState extends State<SignUp> {
         'email': _auth.currentUser!.email.toString(),
         'latitude':_latitide,
         'longitude':_longitude,
+        'phoneNumber': _phoneNo,
         'rating': '1',
 
       });
@@ -167,6 +169,19 @@ class _SignUpState extends State<SignUp> {
                               return null;
                             },
                             onChanged: (value) => _confirmPassword = value,
+                          ),
+                          TextFormField(
+                            keyboardType: TextInputType.number,
+                            decoration:
+                            InputDecoration(labelText: 'Phone Number',prefixIcon: Icon(Icons.phone)),
+
+                            validator: (value) {
+                              if(value!.isEmpty){
+                                return 'This field is required';
+                              }
+
+                            },
+                            onChanged: (value) => _phoneNo = value,
                           ),
                           SizedBox(height: 18),
                           Container(
