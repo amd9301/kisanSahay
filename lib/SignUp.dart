@@ -5,6 +5,7 @@ import 'package:kisan_sahay/Login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geolocator/geolocator.dart';
 import 'Login.dart';
+import 'package:geocoder/geocoder.dart';
 
 
 class SignUp extends StatefulWidget {
@@ -22,14 +23,14 @@ class _SignUpState extends State<SignUp> {
   String _userEmail = '';
   String _userName = '';
   String _password = '';
-  String _latitide = '';
-  String _longitude = '';
+  double _latitide =1;
+  double _longitude =1;
   String _confirmPassword = '';
   String _phoneNo = '';
-  Future<String> get_locatio() async{
+  Future<double> get_locatio() async{
     Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    _latitide= position.latitude.toString();
-    return position.longitude.toString();
+    _latitide= position.latitude;
+    return position.longitude;
   }
   // This function is triggered when the user press the "Sign Up" button
   void _trySubmitForm() async {
@@ -41,20 +42,31 @@ class _SignUpState extends State<SignUp> {
       print(_password);
       print(_confirmPassword);
       _longitude= await get_locatio();
-      print(_longitude);
+      // print(_longitude);
+      // print(_latitide);
       UserCredential user= await _auth.createUserWithEmailAndPassword(email: _userEmail,password: _password);
       CollectionReference users = FirebaseFirestore.instance.collection('Users');
       _auth.currentUser!.updateDisplayName(_userName);
       _auth.currentUser!.updatePhotoURL("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_mCyTdVerlZkBa4mPc5wDWUXmbGcIuxaN-1FJ1kJ8BS6rq7vrD1B4Rm33wgyRRTFccwQ&usqp=CAU");
-      // await users.doc(_auth.currentUser!.uid).collection("uploads").doc("1").set(
-      //     {"image":"11"});
+
+      final coordinates = new Coordinates(_latitide, _longitude);
+      var addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
+      var first = addresses.first;
+      print("${first.featureName} : ${first.addressLine}");
+      print("!!!!!!!!!!!!!!!");
+      print(first.locality);
+      print(first.adminArea);
+      print(first.postalCode);
       await users.doc(_auth.currentUser!.uid).set({
         'name':_userName,
         'email': _auth.currentUser!.email.toString(),
         'latitude':_latitide,
         'longitude':_longitude,
         'phoneNumber': _phoneNo,
-        'rating': '1',
+        'rating': 1,
+        'locality':first.locality,
+        'postal':first.postalCode,
+        'adress':first.addressLine,
 
       });
       // print(users.id.)

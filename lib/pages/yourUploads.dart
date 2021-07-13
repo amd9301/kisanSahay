@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kisan_sahay/HomePage.dart';
 import 'package:kisan_sahay/pages/showcart.dart';
+import 'package:kisan_sahay/pages/Changeupload.dart';
 import 'package:kisan_sahay/widgets/categorycard.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
 
@@ -78,20 +79,23 @@ class _YourUploadsState extends State<YourUploads> {
 
                                   return
                                     CategoryCard(
-                                        url:snapshot.data!.docs.elementAt(i)['dowurl'],
+                                        url:snapshot.data!.docs.elementAt(i)['dowpath'],
                                       name: snapshot.data!.docs.elementAt(i)['typename'],
-                                      onCardClick:(){
-                                        Navigator.push(context,
+                                      onCardClick:() async {
+                                       await  Navigator.push(context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    Showcart(
+                                                    Changeupload(
                                                       typename:snapshot.data!.docs.elementAt(i)['typename'],
                                                       id: snapshot.data!.docs[i].id,
-                                                      url: snapshot.data!.docs.elementAt(i)['dowurl'],
-                                                      cost: snapshot.data!.docs.elementAt(i)['cost'].toString(),
+                                                      url: snapshot.data!.docs.elementAt(i)['dowpath'],
+                                                      cost:snapshot.data!.docs.elementAt(i)['cost'],
                                                     )
                                             )
                                         );
+                                       setState(() {
+
+                                       });
                                       },
 
                                     );

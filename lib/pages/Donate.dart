@@ -28,7 +28,7 @@ class _DonateState extends State<Donate>
   bool done = false;
   final picker = ImagePicker();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  int cost = 0;
+  String cost = '';
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future pickImage() async {
@@ -70,11 +70,14 @@ class _DonateState extends State<Donate>
         _imageurl = await uploadTask.snapshot.ref.getDownloadURL();
       });
       CollectionReference users = FirebaseFirestore.instance.collection('Users');
-      await FirebaseFirestore.instance.collection('Equip').doc(typename).collection('items').add(
-          {'cost':cost,'dowpath':_imageurl,'owner':_auth.currentUser!.uid.toString()});
+         var docsnapshot = await users.doc(_auth.currentUser!.uid).get();
+      var df = (docsnapshot.data() as Map<String, dynamic>);
+      // print(df['rating']);
+      DocumentReference d= await FirebaseFirestore.instance.collection('Equip').doc(typename).collection('items').add(
+          {'adress':df['adress'],'locality':df['locality'],'postal':df['postal'],'cost':cost.toString(),'dowpath':_imageurl,'owner':_auth.currentUser!.uid.toString(),});
 
-      await users.doc(_auth.currentUser!.uid.toString()).collection("uploads").doc(typename).collection("items").add(
-          {'imageurl':_imageurl});
+      await users.doc(_auth.currentUser!.uid.toString()).collection("uploads").doc(d.id).set(
+          {'dowpath':_imageurl,'typename':typename,'cost':cost.toString()});
       Navigator.pop(context);
 
     } catch (error) {
@@ -139,7 +142,7 @@ class _DonateState extends State<Donate>
                             // Return null if the entered email is valid
                             return null;
                           },
-                          onChanged: (value) => cost = int.parse(value),
+                          onChanged: (value) => cost = value.toString(),
 
                         ),
                       ),
