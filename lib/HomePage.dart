@@ -138,7 +138,8 @@ class _HomePageState extends State<HomePage> {
         body:  Container(
             child:
               Stack(
-                children:[ Column(
+                children:[
+                  Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(height: 20,),
@@ -151,7 +152,7 @@ class _HomePageState extends State<HomePage> {
 
                       ),
                     ),
-*/
+                    */
                     SizedBox(height: 20.0),
                     Center(
                       child: Image(
