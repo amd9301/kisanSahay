@@ -42,8 +42,8 @@ class _SignUpState extends State<SignUp> {
       print(_password);
       print(_confirmPassword);
       _longitude= await get_locatio();
-      // print(_longitude);
-      // print(_latitide);
+      print(_longitude);
+      print(_latitide);
       UserCredential user= await _auth.createUserWithEmailAndPassword(email: _userEmail,password: _password);
       CollectionReference users = FirebaseFirestore.instance.collection('Users');
       _auth.currentUser!.updateDisplayName(_userName);
@@ -55,6 +55,7 @@ class _SignUpState extends State<SignUp> {
       print("${first.featureName} : ${first.addressLine}");
       print("!!!!!!!!!!!!!!!");
       print(first.locality);
+     //print("subAdminArea"+first.subAdminArea);
       print(first.adminArea);
       print(first.postalCode);
       await users.doc(_auth.currentUser!.uid).set({
@@ -73,7 +74,7 @@ class _SignUpState extends State<SignUp> {
       try {
         await _auth.currentUser!.sendEmailVerification();
       } catch (e) {
-        print("An error occured while trying to send email        verification");
+        print("An error occurred while trying to send email verification");
         print(e);
       }
       _auth.signOut();

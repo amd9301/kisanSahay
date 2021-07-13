@@ -22,7 +22,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   User? user =FirebaseAuth.instance.currentUser;
+  /*Future<void> _signOut() async {
+    //await FirebaseAuth.instance.signOut();
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (BuildContext context)=> new Cart())
+    );
 
+  }*/
   @override
   Widget build(BuildContext context) {
     user!.reload();
@@ -93,7 +99,9 @@ class _HomePageState extends State<HomePage> {
               ),
               new ListTile(
                 title: new Text('Sign Out'),
-                onTap: () {},
+                onTap: () {
+                  //_signOut();
+                },
               ),
             ],
           ),

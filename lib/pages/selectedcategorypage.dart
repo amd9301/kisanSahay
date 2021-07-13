@@ -86,9 +86,14 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
                             SizedBox(height: 10,),
                             Text(typename,
                               style: TextStyle(
-                                  color: Colors.red
+                                  color: Colors.red,
+                                fontWeight: FontWeight.bold
 
-                              ),)
+                              ),),
+                            Text("₹"+snapshot.data!.docs.elementAt(i)['cost'].toString(),
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),)
                           ],
                         ),
                       ),

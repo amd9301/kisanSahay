@@ -41,11 +41,11 @@ class _ShowcartState extends State<Showcart> {
         child: Column(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(40.0)),
+              borderRadius: BorderRadius.all(Radius.circular(35.0)),
               child: Stack(
                 children: [
                   Container(
-                    height: 300,
+                    height: 250,
                     decoration: BoxDecoration(
                         image: DecorationImage(
                           image: NetworkImage(url),
@@ -82,7 +82,6 @@ class _ShowcartState extends State<Showcart> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-
                                 Text(typename,
                                   style: TextStyle(
                                       color: Colors.white,
@@ -98,7 +97,7 @@ class _ShowcartState extends State<Showcart> {
                                       color: Colors.pink,
                                       borderRadius: BorderRadius.circular(20),
                                     ),
-                                    child:Text(cost+' per day',
+                                    child:Text("₹ "+cost+' per day',
                                       style: TextStyle(
                                         fontSize: 20,
                                         color: Colors.white,
@@ -121,60 +120,120 @@ class _ShowcartState extends State<Showcart> {
             Expanded(
                 child:
                 Container(
-                    child:Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text('Details of the Owner:',
-                          style: TextStyle(
-                              fontSize: 20
+                    child:SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text('Details of the Owner:',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                                fontSize :23,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 20),
-
-                        Padding(
-                          padding: EdgeInsets.all(20),
-                          child: Row(
-                            children: [
-                              ElevatedButton(
-                                  onPressed:(){
-                                    Navigator.push(context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                PayPage()
-                                        )
-                                    );
-                                  },
-                                  style: ElevatedButton.styleFrom(primary: Colors
-                                      .green, shape: new RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(20.0),
-
+                          
+                          SizedBox(height: 20),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(20, 0,0,0),
+                            child: Row(
+                              children: [
+                                Text('Name',style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                ),),
+                                SizedBox(width: 30,),
+                                Text('User Name',
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
                                   ),),
 
-                                  child: Text(' Rent Now  ', style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white
-                                  ),)
-                              ),
-                              SizedBox(width: 50,),
-                              ElevatedButton(
-                                  onPressed:remove,
-                                  style: ElevatedButton.styleFrom(primary: Colors
-                                      .green, shape: new RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(20.0),
-
-                                  ),),
-
-                                  child: Text('Remove', style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white
-                                  ),))
-                            ],
+                              ],
+                            ),
                           ),
-                        )
+                          SizedBox(height: 20),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(20, 0,0,0),
+                            child: Row(
+                              children: [
+                                Text('Location',style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                ),),
+                                SizedBox(width: 30,),
+                                Text('Village Name',
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                  ),),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(20, 0,0,0),
+                            child: Row(
+                              children: [
+                                Text('Contact Details',style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                ),),
+                                SizedBox(width: 30,),
+                                Text('PH No',
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                  ),),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(20),
+                            child: Row(
+                              children: [
+                                ElevatedButton(
+                                    onPressed:(){
+                                      Navigator.push(context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PayPage()
+                                          )
+                                      );
+                                    },
+                                    style: ElevatedButton.styleFrom(primary: Colors
+                                        .green, shape: new RoundedRectangleBorder(
+                                      borderRadius: new BorderRadius.circular(20.0),
 
-                      ],
+                                    ),),
+
+                                    child: Text(' Rent Now  ', style: TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white
+                                    ),)
+                                ),
+                                SizedBox(width: 50,),
+                                ElevatedButton(
+                                    onPressed:remove,
+                                    style: ElevatedButton.styleFrom(primary: Colors
+                                        .green, shape: new RoundedRectangleBorder(
+                                      borderRadius: new BorderRadius.circular(20.0),
+
+                                    ),),
+
+                                    child: Text('Remove', style: TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white
+                                    ),))
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
                     )
 
                 ))

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
 import 'package:kisan_sahay/pages/cart.dart';
@@ -19,6 +20,8 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   String id ;
   String url ;
   String cost ;
@@ -26,8 +29,11 @@ class _DetailsPageState extends State<DetailsPage> {
   _DetailsPageState(this.id,this.typename,this.url,this.cost);
 
   Future addto() async{
-    await FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).collection("cart").doc(id).set(
-        {'dowurl':url,'cost':cost,'typename':typename});
+    await FirebaseFirestore.instance.collection("Users").
+    doc(FirebaseAuth.instance.currentUser!.uid).collection("cart").doc(id).set(
+        {
+          'dowurl':url,'cost':cost,'typename':typename
+        });
     Navigator.push(context,
         MaterialPageRoute(
             builder: (context) =>
@@ -47,12 +53,12 @@ class _DetailsPageState extends State<DetailsPage> {
         child: Column(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(40.0)),
+              borderRadius: BorderRadius.all(Radius.circular(35.0)),
               child: Stack(
                 children: [
 
                   Container(
-                    height: 300,
+                    height: 250,
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             image: NetworkImage(url),
@@ -119,7 +125,6 @@ class _DetailsPageState extends State<DetailsPage> {
 
                         ),
                       ))
-
                 ],
 
               ),
@@ -128,60 +133,119 @@ class _DetailsPageState extends State<DetailsPage> {
             Expanded(
                 child:
                 Container(
-                  child:Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                        Text('Details of the Owner:',
-                          style: TextStyle(
-                            fontSize: 20
+                  child:SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                          Text('Details of the Owner:',
+                            style: TextStyle(
+                              fontSize: 23,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                       SizedBox(height: 20),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(20, 0,0,0),
+                          child: Row(
+                            children: [
+                              Text('Name',style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                              ),),
+                              SizedBox(width: 30,),
+                              Text('User Name',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                              ),),
+
+                            ],
                           ),
                         ),
-                     SizedBox(height: 20),
-
-                      Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Row(
-                          children: [
-                            ElevatedButton(
-                                onPressed:(){
-                                  Navigator.push(context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              PayPage()
-                                      )
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(primary: Colors
-                                    .green, shape: new RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(20.0),
-
-                                ),),
-
-                                child: Text(' Rent Now  ', style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white
-                                ),)
-                            ),
-                            SizedBox(width: 50,),
-                            ElevatedButton(
-                                onPressed:addto,
-                                style: ElevatedButton.styleFrom(primary: Colors
-                                    .green, shape: new RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(20.0),
-
-                                ),),
-
-                                child: Text('Add to Cart', style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white
-                                ),))
-                          ],
+                        SizedBox(height: 20),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(20, 0,0,0),
+                          child: Row(
+                            children: [
+                              Text('Location',style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                              ),),
+                              SizedBox(width: 30,),
+                              Text('Village Name',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                              ),),
+                            ],
+                          ),
                         ),
-                      )
+                        SizedBox(height: 20),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(20, 0,0,0),
+                          child: Row(
+                            children: [
+                              Text('Contact Details',style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                              ),),
+                              SizedBox(width: 30,),
+                              Text('PH No',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                              ),),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(20),
+                          child: Row(
+                            children: [
+                              ElevatedButton(
+                                  onPressed:(){
+                                    Navigator.push(context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                PayPage()
+                                        )
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(primary: Colors
+                                      .green, shape: new RoundedRectangleBorder(
+                                    borderRadius: new BorderRadius.circular(20.0),
 
-                    ],
+                                  ),),
+
+                                  child: Text(' Rent Now  ', style: TextStyle(
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white
+                                  ),)
+                              ),
+                              SizedBox(width: 50,),
+                              ElevatedButton(
+                                  onPressed:addto,
+                                  style: ElevatedButton.styleFrom(primary: Colors
+                                      .green, shape: new RoundedRectangleBorder(
+                                    borderRadius: new BorderRadius.circular(20.0),
+
+                                  ),),
+
+                                  child: Text('Add to Cart', style: TextStyle(
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white
+                                  ),))
+                            ],
+                          ),
+                        )
+
+                      ],
+                    ),
                   )
 
                 ))

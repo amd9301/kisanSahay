@@ -99,7 +99,12 @@ class CategoryListPage extends StatelessWidget {
               margin: EdgeInsets.only(right: 10),
               padding: EdgeInsets.all(10),
               child: ClipOval(
-                child: Icon(Icons.shopping_cart),
+                child: IconButton(
+                  icon: Icon(Icons.shopping_cart, color: Colors.green[600]),
+                  onPressed: () {Navigator.push(context,
+                      new MaterialPageRoute(builder: (BuildContext context)=> new Cart())
+                  );},
+                ),
               ),
             )
           ],

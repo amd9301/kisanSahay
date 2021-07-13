@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_signin_button/button_list.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
 import 'package:kisan_sahay/pages/cart.dart';
 import 'package:kisan_sahay/pages/Payment.dart';
@@ -44,6 +45,7 @@ class _ChangeuploadState extends State<Changeupload> {
 
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: TitleBar(),
       body:Container(
         alignment: Alignment.center,
@@ -53,9 +55,8 @@ class _ChangeuploadState extends State<Changeupload> {
               borderRadius: BorderRadius.all(Radius.circular(40.0)),
               child: Stack(
                 children: [
-
                   Container(
-                    height: 300,
+                    height: 250,
                     decoration: BoxDecoration(
                         image: DecorationImage(
                           image: NetworkImage(url),
@@ -127,85 +128,148 @@ class _ChangeuploadState extends State<Changeupload> {
 
               ),
             ),
-            SizedBox(height: 20,),
-            Container(
 
-              child: TextFormField(
-                decoration: InputDecoration(
-                    labelText: 'Change Cost per day',
-                    prefixIcon: Icon(Icons.money)
-                ),
-                keyboardType: TextInputType.number,
-                inputFormatters:[
-                  FilteringTextInputFormatter.digitsOnly
-                ], // Only numbers can be entered
-                validator: (value) {
-                  if (value!.trim().isEmpty) {
-                    return 'Please enter cost per day';
-                  }
 
-                  // Return null if the entered email is valid
-                  return null;
-                },
-                onChanged: (value) => cost =value.toString(),
-
-              ),
-            ),
             SizedBox(height: 20,),
             Expanded(
                 child:
-                Container(
-                    child:Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text('Details of the Owner:',
-                          style: TextStyle(
-                              fontSize: 20
-                          ),
-                        ),
-                        SizedBox(height: 20),
+                SingleChildScrollView(
+                  child: Container(
+                      child:Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 15,right:10),
+                            child: Container(
 
-                        Padding(
-                          padding: EdgeInsets.all(20),
-                          child: Row(
-                            children: [
-                              ElevatedButton(
-                                  onPressed: del,
-                                  style: ElevatedButton.styleFrom(primary: Colors
-                                      .green, shape: new RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(20.0),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                    labelText: 'Change Cost per day',
+                                    prefixIcon: Icon(Icons.money)
+                                ),
+                                keyboardType: TextInputType.number,
+                                inputFormatters:[
+                                  FilteringTextInputFormatter.digitsOnly
+                                ], // Only numbers can be entered
+                                validator: (value) {
+                                  if (value!.trim().isEmpty) {
+                                    return 'Please enter cost per day';
+                                  }
 
-                                  ),),
+                                  // Return null if the entered email is valid
+                                  return null;
+                                },
+                                onChanged: (value) => cost =value.toString(),
 
-                                  child: Text('delete ', style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white
-                                  ),)
                               ),
-                              SizedBox(width: 50,),
-                              ElevatedButton(
-                                  onPressed:changecost,
-                                  style: ElevatedButton.styleFrom(primary: Colors
-                                      .green, shape: new RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(20.0),
-
-                                  ),),
-
-                                  child: Text('change', style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white
-                                  ),))
-                            ],
+                            ),
                           ),
-                        )
+                          SizedBox(height: 20,),
+                         Column(
+                           mainAxisAlignment: MainAxisAlignment.spaceAround,
+                           children: [
+                             Text('Other Details',
+                               style: TextStyle(
+                                   fontSize: 20,
+                                 fontWeight: FontWeight.bold
+                               ),
+                             ),
+                             SizedBox(height: 20),
+                             Padding(
+                               padding: EdgeInsets.fromLTRB(20, 0,0,20),
+                               child: Row(
+                                 children: [
+                                   Text(
+                                     'Location',style: TextStyle(
+                                     color: Colors.black,
+                                     fontSize: 20,
+                                   ),),
+                                   SizedBox(width: 50,),
+                                   Text('Village Name',
+                                     textAlign: TextAlign.right,
+                                     style: TextStyle(
+                                       color: Colors.black,
+                                       fontSize: 20,
+                                     ),),
 
-                      ],
-                    )
+                                 ],
+                               ),
 
+                             ),
+                            /* ElevatedButton(
+                                 onPressed: (){},
+                                 //onPressed: del,
+                                 style: ElevatedButton.styleFrom(
+                                   primary: Colors.lightBlueAccent,
+                                   shape: new RoundedRectangleBorder(
+                                     borderRadius: new BorderRadius.circular(20.0),
+
+                                   ),),*/
+                                  //child:
+                                Center(
+                                     child: ElevatedButton.icon(
+                                       icon: Icon(
+                                         Icons.location_on_sharp,
+                                         color: Colors.white,
+                                         size: 24.0,
+                                       ),
+                                       label: Text('Change Location'),
+                                       onPressed: () {
+                                        // print('Change Location Button Pressed');
+                                       },
+                                       style: ElevatedButton.styleFrom(
+                                         shape: new RoundedRectangleBorder(
+                                           borderRadius: new BorderRadius.circular(30.0),
+                                         ),
+                                       ),
+                                     )
+                                 )
+                             //),
+                           ],
+
+                         ),
+                          Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                ElevatedButton(
+                                    onPressed: del,
+                                    style: ElevatedButton.styleFrom(primary: Colors
+                                        .green, shape: new RoundedRectangleBorder(
+                                      borderRadius: new BorderRadius.circular(20.0),
+
+                                    ),),
+
+                                    child: Text('Delete ', style: TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white
+                                    ),)
+                                ),
+                                //SizedBox(width: 70,),
+                                ElevatedButton(
+                                    onPressed:changecost,
+                                    style: ElevatedButton.styleFrom(primary: Colors
+                                        .green, shape: new RoundedRectangleBorder(
+                                      borderRadius: new BorderRadius.circular(20.0),
+
+                                    ),),
+
+                                    child: Text('Change', style: TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white
+                                    ),))
+                              ],
+                            ),
+                          )
+
+                        ],
+                      )
+
+                  ),
                 ))
-
           ],
         ),
       ),
