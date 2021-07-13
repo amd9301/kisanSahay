@@ -90,6 +90,7 @@ class _YourUploadsState extends State<YourUploads> {
                                                       id: snapshot.data!.docs[i].id,
                                                       url: snapshot.data!.docs.elementAt(i)['dowpath'],
                                                       cost:snapshot.data!.docs.elementAt(i)['cost'],
+                                                      locality:snapshot.data!.docs.elementAt(i)['locality'],
                                                     )
                                             )
                                         );

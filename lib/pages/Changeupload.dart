@@ -8,16 +8,18 @@ import 'package:kisan_sahay/models/subcategory.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-
+import 'package:geolocator/geolocator.dart';
+import 'package:geocoder/geocoder.dart';
 class Changeupload extends StatefulWidget {
   final   String id ;
   final   String url ;
   final String typename ;
   final String cost ;
-  const Changeupload({Key? key,required this.typename,required this.id,required this.url,required this.cost}) : super(key: key);
+  final String locality ;
+  const Changeupload({Key? key,required this.typename,required this.id,required this.locality,required this.url,required this.cost}) : super(key: key);
 
   @override
-  _ChangeuploadState createState() => _ChangeuploadState(id,typename,url,cost);
+  _ChangeuploadState createState() => _ChangeuploadState(id,typename,url,cost,locality);
 }
 
 class _ChangeuploadState extends State<Changeupload> {
@@ -26,11 +28,23 @@ class _ChangeuploadState extends State<Changeupload> {
   String url ;
   String cost ;
   String typename ;
-  _ChangeuploadState(this.id,this.typename,this.url,this.cost);
+  String locality ;
+  _ChangeuploadState(this.id,this.typename,this.url,this.cost,this.locality);
+  Future<void> chanegloc() async{
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    double latitide= position.latitude;
+    double longitude = position.longitude;
+    final coordinates = new Coordinates(latitide, longitude);
+    var addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    setState(() {
+      locality=addresses.first.locality;
+      print(locality);
+    });
 
+  }
   Future changecost() async{
     await FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).collection("uploads").doc(id).update({
-      'cost':cost,
+      'cost':cost,'locality':locality
     });
     Navigator.pop(context,);
   }
@@ -185,7 +199,7 @@ class _ChangeuploadState extends State<Changeupload> {
                                      fontSize: 20,
                                    ),),
                                    SizedBox(width: 50,),
-                                   Text('Village Name',
+                                   Text(locality,
                                      textAlign: TextAlign.right,
                                      style: TextStyle(
                                        color: Colors.black,
@@ -214,9 +228,7 @@ class _ChangeuploadState extends State<Changeupload> {
                                          size: 24.0,
                                        ),
                                        label: Text('Change Location'),
-                                       onPressed: () {
-                                        // print('Change Location Button Pressed');
-                                       },
+                                       onPressed: chanegloc,
                                        style: ElevatedButton.styleFrom(
                                          shape: new RoundedRectangleBorder(
                                            borderRadius: new BorderRadius.circular(30.0),

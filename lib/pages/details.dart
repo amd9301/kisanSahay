@@ -12,10 +12,13 @@ class DetailsPage extends StatefulWidget {
   final   String url ;
   final String typename ;
   final String cost ;
-  const DetailsPage({Key? key,required this.typename,required this.id,required this.url,required this.cost}) : super(key: key);
+  final String loc ;
+  final String phn ;
+  final String name ;
+  const DetailsPage({Key? key,required this.typename,required this.name,required this.phn,required this.loc,required this.id,required this.url,required this.cost}) : super(key: key);
 
   @override
-  _DetailsPageState createState() => _DetailsPageState(id,typename,url,cost);
+  _DetailsPageState createState() => _DetailsPageState(id,typename,url,cost,loc,name,phn);
 }
 
 class _DetailsPageState extends State<DetailsPage> {
@@ -26,13 +29,16 @@ class _DetailsPageState extends State<DetailsPage> {
   String url ;
   String cost ;
   String typename ;
-  _DetailsPageState(this.id,this.typename,this.url,this.cost);
+  String loc ;
+  String phn ;
+  String name ;
+  _DetailsPageState(this.id,this.typename,this.url,this.cost,this.loc,this.name,this.phn);
 
   Future addto() async{
     await FirebaseFirestore.instance.collection("Users").
     doc(FirebaseAuth.instance.currentUser!.uid).collection("cart").doc(id).set(
-        {
-          'dowurl':url,'cost':cost,'typename':typename
+
+        {'dowpath':url,'typename':typename,'name':name,'cost':cost.toString(),'locality':loc,'phn':phn
         });
     Navigator.push(context,
         MaterialPageRoute(
@@ -153,7 +159,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                 fontSize: 20,
                               ),),
                               SizedBox(width: 30,),
-                              Text('User Name',
+                              Text(name,
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                 color: Colors.black,
@@ -173,7 +179,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                 fontSize: 20,
                               ),),
                               SizedBox(width: 30,),
-                              Text('Village Name',
+                              Text(loc,
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                 color: Colors.black,
@@ -192,7 +198,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                 fontSize: 20,
                               ),),
                               SizedBox(width: 30,),
-                              Text('PH No',
+                              Text(phn,
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                 color: Colors.black,

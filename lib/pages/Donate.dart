@@ -57,12 +57,12 @@ class _DonateState extends State<Donate>
 
     try {
       DateTime now = DateTime.now();
-      String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
+      String formattedDate = DateFormat('yyyy-MM-dd – kk:mm:ss').format(now);
 
 
       Reference ref = FirebaseStorage.instance
           .ref()
-          .child("uploads")
+          .child("uploads").
           .child("$formattedDate.jpg");
      UploadTask uploadTask = ref.putFile(_imagefile);
 
@@ -74,14 +74,15 @@ class _DonateState extends State<Donate>
       var df = (docsnapshot.data() as Map<String, dynamic>);
       // print(df['rating']);
       DocumentReference d= await FirebaseFirestore.instance.collection('Equip').doc(typename).collection('items').add(
-          {'adress':df['adress'],'locality':df['locality'],'postal':df['postal'],'cost':cost.toString(),'dowpath':_imageurl,'owner':_auth.currentUser!.uid.toString(),});
+          {'phn':df['phoneNumber'],'name':df['name'],'adress':df['adress'],'locality':df['locality'],'postal':df['postal'],'cost':cost.toString(),'dowpath':_imageurl,'owner':_auth.currentUser!.uid.toString(),});
 
       await users.doc(_auth.currentUser!.uid.toString()).collection("uploads").doc(d.id).set(
-          {'dowpath':_imageurl,'typename':typename,'cost':cost.toString()});
+          {'dowpath':_imageurl,'typename':typename,'name':df['name'],'cost':cost.toString(),'adress':df['adress'],'locality':df['locality'],'postal':df['postal'],'phn':df['phoneNumber']});
       Navigator.pop(context);
 
     } catch (error) {
       print(error);
+      print("111");
     }
 
 

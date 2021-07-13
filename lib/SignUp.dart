@@ -54,10 +54,10 @@ class _SignUpState extends State<SignUp> {
       var first = addresses.first;
       print("${first.featureName} : ${first.addressLine}");
       print("!!!!!!!!!!!!!!!");
-      print(first.locality);
+      // print(first.locality);
      //print("subAdminArea"+first.subAdminArea);
-      print(first.adminArea);
-      print(first.postalCode);
+     //  print(first.adminArea);
+     //  print(first.postalCode);
       await users.doc(_auth.currentUser!.uid).set({
         'name':_userName,
         'email': _auth.currentUser!.email.toString(),

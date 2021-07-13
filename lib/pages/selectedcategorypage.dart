@@ -67,6 +67,9 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
                                 builder: (context) =>
                                     DetailsPage(
                                       typename:typename,
+                                      loc:snapshot.data!.docs.elementAt(i)['locality'],
+                                      phn:snapshot.data!.docs.elementAt(i)['phn'],
+                                      name:snapshot.data!.docs.elementAt(i)['name'],
                                       id: snapshot.data!.docs[i].id,
                                       url: snapshot.data!.docs.elementAt(i)['dowpath'],
                                       cost: snapshot.data!.docs.elementAt(i)['cost'].toString(),
@@ -84,7 +87,7 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
                               ),
                             ),
                             SizedBox(height: 10,),
-                            Text(typename,
+                            Text(snapshot.data!.docs.elementAt(i)['locality'],
                               style: TextStyle(
                                   color: Colors.red,
                                 fontWeight: FontWeight.bold
