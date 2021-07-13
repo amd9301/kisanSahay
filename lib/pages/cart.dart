@@ -127,7 +127,7 @@ class _CartState extends State<Cart> {
 
                                     return
                                       CategoryCard(
-                                        url:snapshot.data!.docs.elementAt(i)['dowurl'],
+                                        url:snapshot.data!.docs.elementAt(i)['dowpath'],
                                         name: snapshot.data!.docs.elementAt(i)['typename'],
                                         onCardClick:(){
                                           Navigator.push(context,
@@ -135,8 +135,11 @@ class _CartState extends State<Cart> {
                                                   builder: (context) =>
                                                       Showcart(
                                                         typename:snapshot.data!.docs.elementAt(i)['typename'],
+                                                        name:snapshot.data!.docs.elementAt(i)['name'],
+                                                        phn:snapshot.data!.docs.elementAt(i)['phn'],
+                                                        loc:snapshot.data!.docs.elementAt(i)['locality'],
                                                         id: snapshot.data!.docs[i].id,
-                                                        url: snapshot.data!.docs.elementAt(i)['dowurl'],
+                                                        url: snapshot.data!.docs.elementAt(i)['dowpath'],
                                                         cost: snapshot.data!.docs.elementAt(i)['cost'].toString(),
                                                       )
                                               )

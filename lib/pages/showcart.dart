@@ -10,12 +10,15 @@ class Showcart extends StatefulWidget {
   final   String url ;
   final String typename ;
   final String cost ;
+  final String loc ;
+  final String phn ;
+  final String name ;
   const Showcart(
-      {Key? key,required this.typename,required this.id,required this.url,required this.cost}
+      {Key? key,required this.typename,required this.name,required this.id,required this.url,required this.phn,required this.loc,required this.cost}
       ) : super(key: key);
 
   @override
-  _ShowcartState createState() => _ShowcartState(id,typename,url,cost);
+  _ShowcartState createState() => _ShowcartState(id,typename,url,cost,loc,phn,name);
 }
 
 class _ShowcartState extends State<Showcart> {
@@ -23,8 +26,11 @@ class _ShowcartState extends State<Showcart> {
   String id ;
   String url ;
   String cost ;
+  String name ;
   String typename ;
-  _ShowcartState(this.id,this.typename,this.url,this.cost);
+  String loc ;
+  String phn ;
+  _ShowcartState(this.id,this.typename,this.url,this.cost,this.loc,this.phn,this.name);
 
   Future remove() async{
     await FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).collection("cart").doc(id).delete();
@@ -141,7 +147,7 @@ class _ShowcartState extends State<Showcart> {
                                   fontSize: 20,
                                 ),),
                                 SizedBox(width: 30,),
-                                Text('User Name',
+                                Text(name,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                     color: Colors.black,
@@ -161,7 +167,7 @@ class _ShowcartState extends State<Showcart> {
                                   fontSize: 20,
                                 ),),
                                 SizedBox(width: 30,),
-                                Text('Village Name',
+                                Text(loc,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                     color: Colors.black,
@@ -180,7 +186,7 @@ class _ShowcartState extends State<Showcart> {
                                   fontSize: 20,
                                 ),),
                                 SizedBox(width: 30,),
-                                Text('PH No',
+                                Text(phn,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                     color: Colors.black,
