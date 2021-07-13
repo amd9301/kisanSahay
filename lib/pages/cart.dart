@@ -29,7 +29,9 @@ class _CartState extends State<Cart> {
             new UserAccountsDrawerHeader(accountName: new Text('User Name'),
               accountEmail: new Text('test@gmail.com'),
               currentAccountPicture: new CircleAvatar(
-                backgroundImage: new NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_mCyTdVerlZkBa4mPc5wDWUXmbGcIuxaN-1FJ1kJ8BS6rq7vrD1B4Rm33wgyRRTFccwQ&usqp=CAU'),
+                backgroundImage: new NetworkImage(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_mCyTdVerlZkBa4mPc5wDWUXmbGcIuxaN-1FJ1kJ8BS6rq7vrD1B4Rm33wgyRRTFccwQ&usqp=CAU'
+                ),
               ),
             ),
             new ListTile(

@@ -20,7 +20,7 @@ class CategoryCard extends StatelessWidget {
           children: [
             Positioned.fill(
                 child: ClipRRect(
-                  borderRadius:BorderRadius.circular(0),
+                  borderRadius:BorderRadius.circular(20),
                   child: Image.network(
                     url,
                     loadingBuilder: (context, child, loadingProgress) {

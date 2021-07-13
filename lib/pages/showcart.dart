@@ -10,7 +10,9 @@ class Showcart extends StatefulWidget {
   final   String url ;
   final String typename ;
   final String cost ;
-  const Showcart({Key? key,required this.typename,required this.id,required this.url,required this.cost}) : super(key: key);
+  const Showcart(
+      {Key? key,required this.typename,required this.id,required this.url,required this.cost}
+      ) : super(key: key);
 
   @override
   _ShowcartState createState() => _ShowcartState(id,typename,url,cost);
@@ -42,7 +44,6 @@ class _ShowcartState extends State<Showcart> {
               borderRadius: BorderRadius.all(Radius.circular(40.0)),
               child: Stack(
                 children: [
-
                   Container(
                     height: 300,
                     decoration: BoxDecoration(
@@ -123,7 +124,7 @@ class _ShowcartState extends State<Showcart> {
                     child:Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text('Please Select the Date:',
+                        Text('Details of the Owner:',
                           style: TextStyle(
                               fontSize: 20
                           ),
@@ -164,7 +165,7 @@ class _ShowcartState extends State<Showcart> {
 
                                   ),),
 
-                                  child: Text('Reemove', style: TextStyle(
+                                  child: Text('Remove', style: TextStyle(
                                       fontSize: 20.0,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white

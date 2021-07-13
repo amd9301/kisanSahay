@@ -6,6 +6,7 @@ import 'package:kisan_sahay/helpers/utils.dart';
 import 'package:kisan_sahay/models/category.dart';
 import 'package:kisan_sahay/pages/selectedcategorypage.dart';
 import 'package:kisan_sahay/pages/Donate.dart';
+import 'package:kisan_sahay/pages/yourUploads.dart';
 import 'package:kisan_sahay/widgets/categorybottombar.dart';
 import 'package:kisan_sahay/widgets/categorycard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -67,13 +68,14 @@ class CategoryListPage extends StatelessWidget {
                 },
               ),
               new ListTile(
-                title: new Text('Your Orders'),
-                onTap: () {},
+                title: new Text('Your Uploads'),
+                onTap: () {
+                  Navigator.push(context,
+                      new MaterialPageRoute(builder: (BuildContext context)=> new YourUploads())
+                  );
+                },
               ),
-              new ListTile(
-                title: new Text('Settings'),
-                onTap: () {},
-              ),
+
               new ListTile(
                 title: new Text('Sign Out'),
                 onTap: () {},

@@ -131,7 +131,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   child:Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                        Text('Please Select the Date:',
+                        Text('Details of the Owner:',
                           style: TextStyle(
                             fontSize: 20
                           ),

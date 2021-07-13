@@ -117,12 +117,12 @@ class _StartState extends State<Start> {
             ),
           ),
             SizedBox(height: 20.0),
-
+/*
             SignInButton(
               Buttons.GoogleDark,
               text: "Sign in with Google",
               onPressed: () =>{signInWithGoogle()},
-            )
+            )*/
 
           ],
         ),

@@ -23,9 +23,9 @@ class _LoginState extends State<Login> {
   bool _obscureText = true;
   bool _isLoggedIn=false;
 
-  GoogleSignIn _googleSignIn = GoogleSignIn();
+  //GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  Future<UserCredential> signInWithGoogle() async {
+  /*Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -40,7 +40,7 @@ class _LoginState extends State<Login> {
 
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
-  }
+  }*/
   Future<void> signIn() async {
     // Trigger the authentication flow
     try {
@@ -80,9 +80,6 @@ class _LoginState extends State<Login> {
         loginfail = true;
       });
     }
-
-
-
 
   }
   checkAuthentication() async

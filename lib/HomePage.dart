@@ -11,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'Need.dart';
+import 'pages/yourUploads.dart';
 class HomePage extends StatefulWidget {
   // final String url;
   const HomePage({Key? key,}) : super(key: key);
@@ -83,8 +84,12 @@ class _HomePageState extends State<HomePage> {
                 onTap: () {},
               ),
               new ListTile(
-                title: new Text('Settings'),
-                onTap: () {},
+                title: new Text('Your Uploads'),
+                onTap: () {
+                  Navigator.push(context,
+                      new MaterialPageRoute(builder: (BuildContext context)=> new YourUploads())
+                  );
+                },
               ),
               new ListTile(
                 title: new Text('Sign Out'),
