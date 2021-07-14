@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
@@ -65,13 +66,20 @@ class _DetailsPageState extends State<DetailsPage> {
 
                   Container(
                     height: 250,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: NetworkImage(url),
-                          fit: BoxFit.cover,
-                        )
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15.0),
+                      child: CachedNetworkImage(
+                        fit: BoxFit.fill,
+                        imageUrl:
+                        url,
+                        placeholder: (context, url) => CircularProgressIndicator(
+                          color: Colors.grey,
+                        ),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
                     ),
                   ) ,
+
                   Positioned.fill(
                       child:
                      Container(
@@ -101,7 +109,6 @@ class _DetailsPageState extends State<DetailsPage> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-
                                             Text(typename,
                                             style: TextStyle(
                                               color: Colors.white,

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:kisan_sahay/models/category.dart';
 
@@ -21,13 +22,12 @@ class CategoryCard extends StatelessWidget {
             Positioned.fill(
                 child: ClipRRect(
                   borderRadius:BorderRadius.circular(20),
-                  child: Image.network(
-                    url,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) return child;
-
-                      return Center(child:CircularProgressIndicator(color: Colors.green,));
-                    },
+                  child: CachedNetworkImage(
+                    imageUrl: url,
+                    placeholder: (context, url) => Center(child: CircularProgressIndicator(
+                      color: Colors.green,
+                    )),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
                     fit: BoxFit.cover,
                   ),
                 )

@@ -5,6 +5,7 @@ import 'package:kisan_sahay/models/subcategory.dart';
 import 'package:kisan_sahay/pages/details.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class SelectedCategoryPage extends StatefulWidget {
 String typename ;
@@ -80,10 +81,24 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
                       child: Container(
                         child: Column(
                           children: [
-                            ClipRRect(
+                           /* ClipRRect(
                               borderRadius: BorderRadius.circular(15.0),
                               child: Image.network(snapshot.data!.docs.elementAt(i)['dowpath'],
                                 fit: BoxFit.cover,width: 150,height: 120,
+                              ),
+                            ),*/
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(15.0),
+                              child: CachedNetworkImage(
+                                height: 120,
+                                width: 150,
+                                fit: BoxFit.fill,
+                                imageUrl:
+                                snapshot.data!.docs.elementAt(i)['dowpath'],
+                                placeholder: (context, url) => CircularProgressIndicator(
+                                  color: Colors.grey,
+                                ),
+                                errorWidget: (context, url, error) => Icon(Icons.error),
                               ),
                             ),
                             SizedBox(height: 10,),

@@ -62,7 +62,7 @@ class _DonateState extends State<Donate>
 
       Reference ref = FirebaseStorage.instance
           .ref()
-          .child("uploads").
+          .child("uploads")
           .child("$formattedDate.jpg");
      UploadTask uploadTask = ref.putFile(_imagefile);
 
