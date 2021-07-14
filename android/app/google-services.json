@@ -1,42 +1,33 @@
 {
   "project_info": {
-    "project_number": "104968447989",
-    "project_id": "kisansahay-54fcf",
-    "storage_bucket": "kisansahay-54fcf.appspot.com"
+    "project_number": "161764658865",
+    "project_id": "kisansahay-4d07d",
+    "storage_bucket": "kisansahay-4d07d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:104968447989:android:1348904b266d22206422bc",
+        "mobilesdk_app_id": "1:161764658865:android:7185709e5177d51b8e9c90",
         "android_client_info": {
           "package_name": "com.epics.kisan_sahay"
         }
       },
       "oauth_client": [
         {
-          "client_id": "104968447989-4284213kv1fd7culc0qogvit1koo27k5.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.epics.kisan_sahay",
-            "certificate_hash": "7380a9015c72afa56400ded0c72cdc702950f02b"
-          }
-        },
-        {
-          "client_id": "104968447989-u2ggkhime9h04s6tfarblq4gt8cjig5j.apps.googleusercontent.com",
+          "client_id": "161764658865-dulfqgn81sd4lsp2vv01f8pup4ab51hu.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBK7eCauV5ou_DHch91IoidAva2Jwf6cjg"
-          
+          "current_key": "AIzaSyDap7BKsMdWFc2h6qbu9AqE-xKY__cUGhw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "104968447989-u2ggkhime9h04s6tfarblq4gt8cjig5j.apps.googleusercontent.com",
+              "client_id": "161764658865-dulfqgn81sd4lsp2vv01f8pup4ab51hu.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

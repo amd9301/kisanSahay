@@ -58,8 +58,6 @@ class _DonateState extends State<Donate>
     try {
       DateTime now = DateTime.now();
       String formattedDate = DateFormat('yyyy-MM-dd – kk:mm:ss').format(now);
-
-
       Reference ref = FirebaseStorage.instance
           .ref()
           .child("uploads")
