@@ -7,6 +7,7 @@ import 'package:kisan_sahay/pages/Donate.dart';
 import 'package:kisan_sahay/pages/Personal.dart';
 import 'package:kisan_sahay/pages/Predonate.dart';
 import 'package:kisan_sahay/Login.dart';
+import 'package:kisan_sahay/pages/map.dart';
 import 'package:kisan_sahay/widgets/categorybottombar.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -76,6 +77,14 @@ class _HomePageState extends State<HomePage> {
 
                 ),
                 )
+              ),
+              new ListTile(
+                title: new Text('Nearby Users'),
+                onTap: () {
+                  Navigator.push(context,
+                      new MaterialPageRoute(builder: (BuildContext context)=> new NearbyMap())
+                  );
+                },
               ),
               new ListTile(
                 title: new Text('Donate Machinery'),

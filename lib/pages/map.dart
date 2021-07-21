@@ -74,7 +74,7 @@ class _NearbyMapState extends State<NearbyMap> {
   Widget build(BuildContext context) {
     user!.reload();
     return Scaffold(
-
+      appBar: TitleBar(),
       body: Stack(
         children: [
           GoogleMap(

@@ -10,17 +10,36 @@ import 'package:kisan_sahay/pages/yourUploads.dart';
 import 'package:kisan_sahay/widgets/categorybottombar.dart';
 import 'package:kisan_sahay/widgets/categorycard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:widget_loading/widget_loading.dart';
 
+import '../Start.dart';
 import 'Personal.dart';
 import 'Predonate.dart';
 import 'cart.dart';
 
-class CategoryListPage extends StatelessWidget {
+class CategoryListPage extends StatefulWidget {
 
 
+  @override
+  _CategoryListPageState createState() => _CategoryListPageState();
+}
+
+class _CategoryListPageState extends State<CategoryListPage> {
   final Stream<QuerySnapshot> _equipStream = FirebaseFirestore.instance.collection('Equip').snapshots();
-
+  bool signedout=false;
+  FirebaseAuth _auth=FirebaseAuth.instance;
+  Future<Null> _signOut() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isLoggedin', false);
+    await _auth.signOut();
+    this.setState(() {
+      signedout = true;
+    });
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => Start()),
+            (Route<dynamic> route) => false);
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -79,7 +98,9 @@ class CategoryListPage extends StatelessWidget {
 
               new ListTile(
                 title: new Text('Sign Out'),
-                onTap: () {},
+                onTap: () {
+                  _signOut();
+                },
               ),
             ],
           ),
@@ -136,7 +157,7 @@ class CategoryListPage extends StatelessWidget {
 
                               if (snapshot.connectionState == ConnectionState.waiting) {
                                 return Center(child: CircularProgressIndicator(strokeWidth: 5,color: Colors.red,),);
-                                
+
                               }
                               return ListView.builder(itemCount : snapshot.data!.docs.length,
                                   padding: EdgeInsets.only(bottom: 60),
