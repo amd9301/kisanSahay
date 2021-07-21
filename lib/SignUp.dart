@@ -209,8 +209,33 @@ class _SignUpState extends State<SignUp> {
                                 ),)),
 
                           ),
-                        ],),
-
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Have an account? ",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(context,
+                                      new MaterialPageRoute(builder: (BuildContext context)=> new Login())
+                                  );
+                                },
+                                child: Text(
+                                  "Login here",
+                                  style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 16,
+                                      decoration: TextDecoration.underline),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
 

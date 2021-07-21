@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kisan_sahay/SignUp.dart';
+import 'package:kisan_sahay/Start.dart';
 import 'package:kisan_sahay/pages/cart.dart';
 import 'package:kisan_sahay/pages/categorylistpage.dart';
 import 'package:kisan_sahay/pages/Donate.dart';
@@ -9,6 +11,7 @@ import 'package:kisan_sahay/widgets/categorybottombar.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Need.dart';
 import 'pages/yourUploads.dart';
@@ -29,6 +32,19 @@ class _HomePageState extends State<HomePage> {
     );
 
   }*/
+  bool signedout=false;
+  FirebaseAuth _auth=FirebaseAuth.instance;
+  Future<Null> _signOut() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isLoggedin', false);
+    await _auth.signOut();
+    this.setState(() {
+      signedout = true;
+    });
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => Start()),
+            (Route<dynamic> route) => false);
+  }
   @override
   Widget build(BuildContext context) {
     user!.reload();
@@ -101,11 +117,11 @@ class _HomePageState extends State<HomePage> {
                 title: new Text('Sign Out'),
                 onTap: () {
                   //_signOut();
+                  _signOut();
                 },
               ),
             ],
           ),
-
         ),
 
         appBar:  AppBar(
