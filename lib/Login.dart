@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'HomePage.dart';
 import 'package:kisan_sahay/pages/verify.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -22,65 +23,35 @@ class _LoginState extends State<Login> {
   String _password = '';
   bool _obscureText = true;
   bool _isLoggedIn=false;
+  // final prefs = await SharedPreferences.getInstance();
 
-  //GoogleSignIn _googleSignIn = GoogleSignIn();
-
-  /*Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
-
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
-  }*/
   Future<void> signIn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isLoggedin', false);
     // Trigger the authentication flow
     try {
       await _auth.signInWithEmailAndPassword(
           email: _email, password: _password);
-
-      // if(_auth.currentUser!.emailVerified==true){
-
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => HomePage()),
         );
-      // }
-      // else{
-      //   try {
-      //     // await _auth.currentUser!.sendEmailVerification();
-      //     print("!!!!!");
-      //   } catch (e) {
-      //     print("An error occured while trying to send email        verification");
-      //     print(e);
-      //   }
         setState(() {
           print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!@!");
           loginfail = false;
+          prefs.setBool('isLoggedin', true);
+          print(prefs.getBool('isLoggedin'));
         });
-      //   Navigator.push(
-      //     context,
-      //     MaterialPageRoute(builder: (context) => Verify()),
-      //   );
-      // }
     }
-
     catch(e){
       print(e);
       setState(() {
         print("!@#**************************************");
         loginfail = true;
+        prefs.setBool('isLoggedin', false);
+        print(prefs.getBool('isLoggedin'));
       });
     }
-
   }
   checkAuthentication() async
   {
@@ -88,7 +59,6 @@ class _LoginState extends State<Login> {
       if (user == null) {
         print('User is currently signed out!');
       } else {
-
         print('User is signed in!');
         Navigator.push(
           context,
@@ -96,18 +66,17 @@ class _LoginState extends State<Login> {
         );
       }
     });
-
     @override
     void initState() {
       super.initState();
       this.checkAuthentication();
+      // check_if_already_login();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       resizeToAvoidBottomInset: true,
       //physics: ClampingScrollPhysics(parent: NeverScrollableScrollPhysics()),
 
@@ -172,7 +141,9 @@ class _LoginState extends State<Login> {
 
                       SizedBox(height: 20.0),
                       ElevatedButton(
-                          onPressed:signIn,
+                          onPressed:() {
+                            signIn();
+                            },
                           style: ElevatedButton.styleFrom(primary: Colors
                               .green, shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(20.0),

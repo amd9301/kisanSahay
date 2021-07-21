@@ -17,7 +17,7 @@ class _TitleBarState extends State<TitleBar> {
     return Scaffold(
 
       appBar: AppBar(
-        title: Text('   Kisan Sahay',
+        title: Text('Kisan Sahay',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.green[600],
