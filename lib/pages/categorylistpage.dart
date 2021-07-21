@@ -10,6 +10,7 @@ import 'package:kisan_sahay/pages/yourUploads.dart';
 import 'package:kisan_sahay/widgets/categorybottombar.dart';
 import 'package:kisan_sahay/widgets/categorycard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:widget_loading/widget_loading.dart';
 
 import 'Personal.dart';
 import 'Predonate.dart';
@@ -135,6 +136,7 @@ class CategoryListPage extends StatelessWidget {
 
                               if (snapshot.connectionState == ConnectionState.waiting) {
                                 return Center(child: CircularProgressIndicator(strokeWidth: 5,color: Colors.red,),);
+                                
                               }
                               return ListView.builder(itemCount : snapshot.data!.docs.length,
                                   padding: EdgeInsets.only(bottom: 60),

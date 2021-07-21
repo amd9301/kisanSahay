@@ -6,6 +6,7 @@ import 'package:kisan_sahay/pages/categorylistpage.dart';
 import 'package:duration/duration.dart';
 import 'package:kisan_sahay/pages/details.dart';
 import 'package:kisan_sahay/pages/selectedcategorypage.dart';
+import 'package:kisan_sahay/widgets/AdvancedDrawer.dart';
 import 'Login.dart';
 import 'Start.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,9 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(MyApp(),
+
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -27,6 +30,8 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.lightBlueAccent
       ),
       home: Start(),
+      //home: NewDrawer(),
+      debugShowCheckedModeBanner: false,
       //home: ,
       //home: SelectedCategoryPage(selectedCategory: Utils.getMockedCategories()[0],),
       /*home: DetailsPage(

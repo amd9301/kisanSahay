@@ -7,6 +7,8 @@ import 'package:kisan_sahay/pages/Payment.dart';
 import 'package:kisan_sahay/models/subcategory.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:url_launcher/url_launcher.dart'as UrlLauncher;
 
 class DetailsPage extends StatefulWidget {
   final   String id ;
@@ -40,7 +42,8 @@ class _DetailsPageState extends State<DetailsPage> {
     doc(FirebaseAuth.instance.currentUser!.uid).collection("cart").doc(id).set(
 
         {'dowpath':url,'typename':typename,'name':name,'cost':cost.toString(),'locality':loc,'phn':phn
-        });
+        }
+        );
     Navigator.push(context,
         MaterialPageRoute(
             builder: (context) =>
@@ -68,6 +71,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     height: 250,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(15.0),
+
                       child: CachedNetworkImage(
                         fit: BoxFit.fill,
                         imageUrl:
@@ -220,12 +224,13 @@ class _DetailsPageState extends State<DetailsPage> {
                             children: [
                               ElevatedButton(
                                   onPressed:(){
-                                    Navigator.push(context,
+                                    UrlLauncher.launch("tel:"+phn);
+                                   /* Navigator.push(context,
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 PayPage()
                                         )
-                                    );
+                                    );*/
                                   },
                                   style: ElevatedButton.styleFrom(primary: Colors
                                       .green, shape: new RoundedRectangleBorder(

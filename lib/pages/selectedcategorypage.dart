@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kisan_sahay/models/category.dart';
 import 'package:kisan_sahay/models/subcategory.dart';
@@ -6,9 +7,12 @@ import 'package:kisan_sahay/pages/details.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:geolocator/geolocator.dart';
+//import 'package:geolocator_platform_interface/geolocator_platform_interface.dart';
 
 class SelectedCategoryPage extends StatefulWidget {
 String typename ;
+
  // Stream<QuerySnapshot> _equipStream;
 SelectedCategoryPage({required this.typename}) {}
 
@@ -18,15 +22,19 @@ SelectedCategoryPage({required this.typename}) {}
 
 class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
   String typename;
-
   _SelectedCategoryPageState(this.typename);
 
-
-
+  /*void distance()
+  {
+    double distanceInMeters = Geolocator.distanceBetween(52.2165157, 6.9437819, 52.3546274, 4.8285838);
+    print(distanceInMeters);
+  }*/
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _equipStream = FirebaseFirestore.instance.collection('Equip').doc(typename).collection('items').snapshots();
-
+    double distanceInMeters = Geolocator.distanceBetween(52.2165157, 6.9437819, 52.3546274, 4.8285838);
+    print('Distance');
+    print(distanceInMeters);
     return Scaffold(
   
         appBar: TitleBar(),
@@ -36,6 +44,7 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: 40,),
+
             Text(this.typename,
               style: TextStyle(
                   color: Colors.pink,fontSize: 30

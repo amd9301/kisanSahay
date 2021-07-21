@@ -4,7 +4,6 @@ import 'package:kisan_sahay/widgets/titlebar.dart';
 
 class PayPage extends StatefulWidget {
 
-  const PayPage({Key? key}) : super(key: key);
 
   @override
   _PayPageState createState() => _PayPageState();
@@ -19,9 +18,18 @@ class _PayPageState extends State<PayPage> {
 
     return Scaffold(
       appBar: TitleBar(),
-      body:Center(
-        child: Text(
-          "Payment page",
+      body:Container(
+        child: Padding(
+          padding: EdgeInsets.only(left: 50,top:40,right: 30),
+          child: Column(
+            children: [
+              Text("Contact the Owner",
+              style: TextStyle(fontSize: 30,
+              color: Colors.green[900]),
+              ),
+
+            ],
+          ),
         ),
       )
     );
