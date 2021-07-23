@@ -1,8 +1,8 @@
-# kisan_sahay
+# Kisan Sahay
 
 A new Flutter application.
 
-## This is a mobile application developed for sharing machinery among small farmers.
+## Hyper local M Commerce Application developed with Flutter and Firebase
 
 ## Getting Started
 
