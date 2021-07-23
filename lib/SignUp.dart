@@ -28,7 +28,7 @@ class _SignUpState extends State<SignUp> {
   String _confirmPassword = '';
   String _phoneNo = '';
   Future<double> get_locatio() async{
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
     _latitide= position.latitude;
     return position.longitude;
   }

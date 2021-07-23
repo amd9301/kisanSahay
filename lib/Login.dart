@@ -37,7 +37,6 @@ class _LoginState extends State<Login> {
           MaterialPageRoute(builder: (context) => HomePage()),
         );
         setState(() {
-          print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!@!");
           loginfail = false;
           prefs.setBool('isLoggedin', true);
           print(prefs.getBool('isLoggedin'));

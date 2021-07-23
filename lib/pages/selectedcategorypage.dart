@@ -36,7 +36,7 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
     print('Distance');
     print(distanceInMeters);
     return Scaffold(
-  
+
         appBar: TitleBar(),
         body: Column(
           children: [
@@ -69,6 +69,7 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
                 return GridView.count(crossAxisCount: 2,
                 children: List.generate( snapshot.data!.docs.length,
                 (i) {
+
                     return GestureDetector(
                       onTap:(){
                         // // To do : Navigate to the details page

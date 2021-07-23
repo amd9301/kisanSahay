@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
+import 'package:kisan_sahay/pages/show_uploads.dart';
 import 'package:location/location.dart';
 import 'package:geoflutterfire/src/point.dart';
 import 'package:rxdart/rxdart.dart';
@@ -61,9 +62,10 @@ class _NearbyMapState extends State<NearbyMap> {
 
 
   @override
-  void initState(){
+  initState()  {
     //getUsers();
     getlatitude();
+
     super.initState();
   }
 
@@ -73,6 +75,8 @@ class _NearbyMapState extends State<NearbyMap> {
   @override
   Widget build(BuildContext context) {
     user!.reload();
+    print(_markers.length);
+    print("!@#");
     return Scaffold(
       appBar: TitleBar(),
       body: Stack(
@@ -87,7 +91,7 @@ class _NearbyMapState extends State<NearbyMap> {
             ),
             compassEnabled: true,
             onCameraMove: (position) {
-              print(position);
+              // print(position);
               currentLatLng = LatLng(position.target.latitude, position.target.longitude);
             },
           ),
@@ -151,18 +155,45 @@ class _NearbyMapState extends State<NearbyMap> {
     
   }
 
-  Future<DocumentReference>  _addGeoPoint()
+  Future<void>  _addGeoPoint()
   async {
-    LocationData pos = await location.getLocation();
-    GeoFirePoint point = geo.point(latitude:pos.latitude!,longitude:pos.longitude!);
+   await  FirebaseFirestore.instance.collection("Users").get()
+        .then((QuerySnapshot querySnapshot) {
+      print( querySnapshot.size);
+      var j=0;
+      querySnapshot.docs.forEach((doc) {
+        print(doc['latitude']);
+        j=j+1;
+        _markers.add(Marker(markerId: MarkerId(j.toString()),
+          position: LatLng(doc["latitude"],doc["longitude"]),
+          infoWindow: InfoWindow(
+            title: doc['name'],
+            snippet: 'user home',
+          ),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet),
+          
+          onTap: () {
+          // print("1");
+            Navigator.push(context,
+                new MaterialPageRoute(builder: (BuildContext context)=> new ShowUploads(uid: doc.id,name: doc['name'],))
+            );
+          },
+        ));
+      });
+    });
+   setState(() {
 
-    return firestore.collection('locations').add(
-      {
-        'position':point.data,
-        'name': 'User name-1'
+   });
+    // LocationData pos = await location.getLocation();
+    // GeoFirePoint point = geo.point(latitude:pos.latitude!,longitude:pos.longitude!);
 
-      }
-    );
+    // return firestore.collection('locations').add(
+    //   {
+    //     'latitude':pos.latitude,
+    //     'longitude': pos.longitude,
+    //
+    //   }
+    // );
   }
 
   void _updateMarkers(List<DocumentSnapshot> documentList) {
