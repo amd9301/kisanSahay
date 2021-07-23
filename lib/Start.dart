@@ -118,19 +118,8 @@ class _StartState extends State<Start> {
             ),
           ),
             SizedBox(height: 20.0),
-/*
-            SignInButton(
-              Buttons.GoogleDark,
-              text: "Sign in with Google",
-              onPressed: () =>{signInWithGoogle()},
-            )*/
-          /*ElevatedButton(onPressed: (){},
-              child:  Text('Log In with Phone Number',style: TextStyle(
-                  fontSize: 20.0,fontWeight: FontWeight.bold,color: Colors.white
-              ),
-
-          )
-          )*/
+            Text("OR",style:TextStyle(fontSize: 26,fontWeight: FontWeight.bold)),
+            SizedBox(height: 20.0),
             ElevatedButton.icon(
               icon: const Text('Sign-In With Phone Number'),
               label: Icon(Icons.phone),

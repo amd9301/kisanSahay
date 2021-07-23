@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_signin_button/button_list.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
-import 'package:kisan_sahay/pages/cart.dart';
-import 'package:kisan_sahay/pages/Payment.dart';
-import 'package:kisan_sahay/models/subcategory.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoder/geocoder.dart';
+
+
 class Changeupload extends StatefulWidget {
   final   String id ;
   final   String url ;

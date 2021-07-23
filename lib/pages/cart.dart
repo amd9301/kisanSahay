@@ -4,7 +4,6 @@ import 'package:kisan_sahay/pages/categorylistpage.dart';
 import 'package:kisan_sahay/pages/showcart.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
 import 'package:kisan_sahay/widgets/categorycard.dart';
-import 'package:kisan_sahay/widgets/categorybottombar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'Predonate.dart';

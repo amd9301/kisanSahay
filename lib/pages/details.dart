@@ -3,11 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
 import 'package:kisan_sahay/pages/cart.dart';
-import 'package:kisan_sahay/pages/Payment.dart';
-import 'package:kisan_sahay/models/subcategory.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:photo_view/photo_view.dart';
 import 'package:url_launcher/url_launcher.dart'as UrlLauncher;
 
 class DetailsPage extends StatefulWidget {

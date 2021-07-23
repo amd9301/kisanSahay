@@ -2,17 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kisan_sahay/HomePage.dart';
-import 'package:kisan_sahay/helpers/utils.dart';
-import 'package:kisan_sahay/models/category.dart';
 import 'package:kisan_sahay/pages/selectedcategorypage.dart';
-import 'package:kisan_sahay/pages/Donate.dart';
 import 'package:kisan_sahay/pages/yourUploads.dart';
-import 'package:kisan_sahay/widgets/categorybottombar.dart';
 import 'package:kisan_sahay/widgets/categorycard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:widget_loading/widget_loading.dart';
-
 import '../Start.dart';
 import 'Personal.dart';
 import 'Predonate.dart';
@@ -179,7 +173,6 @@ class _CategoryListPageState extends State<CategoryListPage> {
                             }
                         )
                     )
-
                   ],
                 ),
               ]

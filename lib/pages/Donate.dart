@@ -49,7 +49,7 @@ class _DonateState extends State<Donate>
       });
     }
     else{
-      print('permisin denied for photos@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2');
+      print('permision denied for photos@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2');
     }
   }
 

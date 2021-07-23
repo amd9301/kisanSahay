@@ -1,10 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
-import 'package:kisan_sahay/pages/cart.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:kisan_sahay/pages/Payment.dart';
+import 'package:url_launcher/url_launcher.dart'as UrlLauncher;
 
 class Showcart extends StatefulWidget {
   final   String id ;
@@ -208,12 +207,13 @@ class _ShowcartState extends State<Showcart> {
                               children: [
                                 ElevatedButton(
                                     onPressed:(){
-                                      Navigator.push(context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  PayPage()
-                                          )
-                                      );
+                                      UrlLauncher.launch("tel:"+phn);
+                                      /* Navigator.push(context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                PayPage()
+                                        )
+                                    );*/
                                     },
                                     style: ElevatedButton.styleFrom(primary: Colors
                                         .green, shape: new RoundedRectangleBorder(
@@ -250,7 +250,6 @@ class _ShowcartState extends State<Showcart> {
                     )
 
                 ))
-
           ],
         ),
       ),
