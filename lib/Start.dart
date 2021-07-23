@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kisan_sahay/SignUp.dart';
+import 'package:kisan_sahay/phoneAuth/EnterNo.dart';
 
 import 'Login.dart';
 
@@ -123,7 +124,21 @@ class _StartState extends State<Start> {
               text: "Sign in with Google",
               onPressed: () =>{signInWithGoogle()},
             )*/
+          /*ElevatedButton(onPressed: (){},
+              child:  Text('Log In with Phone Number',style: TextStyle(
+                  fontSize: 20.0,fontWeight: FontWeight.bold,color: Colors.white
+              ),
 
+          )
+          )*/
+            ElevatedButton.icon(
+              icon: const Text('Sign-In With Phone Number'),
+              label: Icon(Icons.phone),
+              onPressed: () {Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PhoneLogin()),
+              );},
+            )
           ],
         ),
       ),

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:kisan_sahay/HomePage.dart';
@@ -22,7 +21,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.lightBlueAccent
       ),
+      debugShowCheckedModeBanner: false,
       home: Start(),
       //home: ,
       //home: SelectedCategoryPage(selectedCategory: Utils.getMockedCategories()[0],),
