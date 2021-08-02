@@ -9,7 +9,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:geolocator/geolocator.dart';
 //import 'package:geolocator_platform_interface/geolocator_platform_interface.dart';
-
+import 'package:translator/translator.dart';
+import 'package:kisan_sahay/globals.dart' as globals;
 class SelectedCategoryPage extends StatefulWidget {
 String typename ;
 
@@ -44,11 +45,16 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: 40,),
+            FutureBuilder(
+                future: this.typename.translate(to: globals.lang).then((value) =>  value.text),
+                initialData:this.typename,
+                builder: (BuildContext context, AsyncSnapshot<String> text) {
+                  return  Text(text.data.toString(),textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.pink,fontSize: 30
+                    ),);
+                })
 
-            Text(this.typename,
-              style: TextStyle(
-                  color: Colors.pink,fontSize: 30
-              ),)
           ],
         ),
         SizedBox(height: 10,),
@@ -112,12 +118,16 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
                               ),
                             ),
                             SizedBox(height: 10,),
-                            Text(snapshot.data!.docs.elementAt(i)['locality'],
-                              style: TextStyle(
-                                  color: Colors.red,
-                                fontWeight: FontWeight.bold
-
-                              ),),
+                            FutureBuilder(
+                                future:  snapshot.data!.docs.elementAt(i)['locality'].toString().translate(to: globals.lang).then((value) =>  value.text),
+                                initialData:snapshot.data!.docs.elementAt(i)['locality'].toString(),
+                                builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                  // print(text);
+                                  return  Text(text.data.toString(),style : TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.bold
+                                  ),);
+                                }),
                             Text("₹"+snapshot.data!.docs.elementAt(i)['cost'].toString(),
                             style: TextStyle(
                               color: Colors.black,

@@ -6,7 +6,9 @@ import 'package:kisan_sahay/pages/cart.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart'as UrlLauncher;
-
+//import 'package:geolocator_platform_interface/geolocator_platform_interface.dart';
+import 'package:translator/translator.dart';
+import 'package:kisan_sahay/globals.dart' as globals;
 class DetailsPage extends StatefulWidget {
   final   String id ;
   final   String url ;
@@ -110,12 +112,16 @@ class _DetailsPageState extends State<DetailsPage> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                            Text(typename,
-                                            style: TextStyle(
+                                    FutureBuilder(
+                                        future: this.typename.translate(to: globals.lang).then((value) =>  value.text),
+                                        initialData:this.name,
+                                        builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                          return  Text(text.data.toString(),style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 20
-                                            )
-                                              ,) ,
+                                          ));
+                                        }),
+
                                     SizedBox(height: 10,),
                                     Container(
                                         padding: EdgeInsets.all(10),
@@ -125,11 +131,15 @@ class _DetailsPageState extends State<DetailsPage> {
                                               color: Colors.pink,
                                              borderRadius: BorderRadius.circular(20),
                                            ),
-                                             child:Text(cost+' per day',
-                                             style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.white,
-                                             ),)
+                                             child:   FutureBuilder(
+                                                 future: (cost+" per day").translate(to: globals.lang).then((value) =>  value.text),
+                                                 initialData:cost+"per day",
+                                                 builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                                   return  Text(text.data.toString(),style:  TextStyle(
+                                                     fontSize: 20,
+                                                     color: Colors.white,
+                                                   ));
+                                                 }),
 
                                     )
                                   ],
@@ -151,28 +161,39 @@ class _DetailsPageState extends State<DetailsPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                          Text('Details of the Owner:',
-                            style: TextStyle(
-                              fontSize: 23,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                        FutureBuilder(
+                            future: 'Details of the Owner:'.translate(to: globals.lang).then((value) =>  value.text),
+                            initialData:'Details of the Owner:',
+                            builder: (BuildContext context, AsyncSnapshot<String> text) {
+                              return  Text(text.data.toString(),style: TextStyle(
+                                fontSize: 23,
+                                fontWeight: FontWeight.bold,
+                              ),);
+                            }),
                        SizedBox(height: 20),
                         Padding(
                           padding: EdgeInsets.fromLTRB(20, 0,0,0),
                           child: Row(
                             children: [
-                              Text('Name',style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                              ),),
+                              FutureBuilder(
+                                  future: 'Name'.translate(to: globals.lang).then((value) =>  value.text),
+                                  initialData:'Name',
+                                  builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                    return  Text(text.data.toString(),style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                    ),);
+                                  }),
                               SizedBox(width: 30,),
-                              Text(name,
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                              ),),
+                              FutureBuilder(
+                                  future: name.translate(to: globals.lang).then((value) =>  value.text),
+                                  initialData:name,
+                                  builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                    return  Text(text.data.toString(),style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                    ),);
+                                  }),
 
                             ],
                           ),
@@ -182,17 +203,26 @@ class _DetailsPageState extends State<DetailsPage> {
                           padding: EdgeInsets.fromLTRB(20, 0,0,0),
                           child: Row(
                             children: [
-                              Text('Location',style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                              ),),
+                              FutureBuilder(
+                                  future: 'Location'.translate(to: globals.lang).then((value) =>  value.text),
+                                  initialData:'Location',
+                                  builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                    return  Text(text.data.toString(),style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                    ),);
+                                  }),
+
                               SizedBox(width: 30,),
-                              Text(loc,
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                              ),),
+                              FutureBuilder(
+                                  future: loc.translate(to: globals.lang).then((value) =>  value.text),
+                                  initialData:loc,
+                                  builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                    return  Text(text.data.toString(),style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                    ),);
+                                  }),
                             ],
                           ),
                         ),
@@ -201,25 +231,32 @@ class _DetailsPageState extends State<DetailsPage> {
                           padding: EdgeInsets.fromLTRB(20, 0,0,0),
                           child: Row(
                             children: [
-                              Text('Contact Details',style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                              ),),
+                              FutureBuilder(
+                                  future: 'Contact Details'.translate(to: globals.lang).then((value) =>  value.text),
+                                  initialData:'Contact Details',
+                                  builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                    return  Text(text.data.toString(),style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                    ),);
+                                  }),
                               SizedBox(width: 30,),
-                              Text(phn,
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                              ),),
+                              FutureBuilder(
+                                  future: phn.toString().translate(to: globals.lang).then((value) =>  value.text),
+                                  initialData:phn.toString(),
+                                  builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                    return  Text(text.data.toString(),style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                    ),);
+                                  }),
                             ],
                           ),
                         ),
                         Padding(
                           padding: EdgeInsets.all(20),
-                          child: Row(
-                            children: [
-                              ElevatedButton(
+
+                            child:  ElevatedButton(
                                   onPressed:(){
                                     UrlLauncher.launch("tel:"+phn);
                                    /* Navigator.push(context,
@@ -235,14 +272,20 @@ class _DetailsPageState extends State<DetailsPage> {
 
                                   ),),
 
-                                  child: Text(' Rent Now  ', style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white
-                                  ),)
-                              ),
-                              SizedBox(width: 50,),
-                              ElevatedButton(
+                                  child:
+                                  FutureBuilder(
+                                      future: 'Rent Now'.translate(to: globals.lang).then((value) =>  value.text),
+                                      initialData:'Rent Now',
+                                      builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                        return  Text(text.data.toString(), style: TextStyle(
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white
+                                        ));
+                                      }),
+                              ),),
+                              SizedBox(height: 10,),
+                               ElevatedButton(
                                   onPressed:addto,
                                   style: ElevatedButton.styleFrom(primary: Colors
                                       .green, shape: new RoundedRectangleBorder(
@@ -250,14 +293,19 @@ class _DetailsPageState extends State<DetailsPage> {
 
                                   ),),
 
-                                  child: Text('Add to Cart', style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white
-                                  ),))
-                            ],
-                          ),
-                        )
+                                  child: FutureBuilder(
+                                      future: 'Add to Cart'.translate(to: globals.lang).then((value) =>  value.text),
+                                      initialData:'Add to Cart',
+                                      builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                        return  Text(text.data.toString(), style: TextStyle(
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white
+                                        ));
+                                      }),)
+
+
+
 
                       ],
                     ),

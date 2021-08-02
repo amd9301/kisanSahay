@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:kisan_sahay/models/category.dart';
-
+import 'package:translator/translator.dart';
+import 'package:kisan_sahay/globals.dart' as globals;
 class CategoryCard extends StatelessWidget {
   String url;
   String name;
@@ -60,13 +61,16 @@ class CategoryCard extends StatelessWidget {
                 padding:EdgeInsets.all(10),
                 child: Row(
                   children: [
-                    Text(
-                      this.name,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25
-                      ),
-                    )
+                    FutureBuilder(
+                        future: this.name.translate(to: globals.lang).then((value) =>  value.text),
+                        initialData:this.name,
+                        builder: (BuildContext context, AsyncSnapshot<String> text) {
+                          return  Text(text.data.toString(),textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25
+                            ),);
+                        })
                   ],
                 ),
               ),

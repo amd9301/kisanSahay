@@ -6,6 +6,8 @@ import 'package:kisan_sahay/pages/Donate.dart';
 import 'package:kisan_sahay/widgets/categorybottombar.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
 
+import 'package:translator/translator.dart';
+import 'package:kisan_sahay/globals.dart' as globals;
 class Disp extends StatefulWidget {
   const Disp({Key? key}) : super(key: key);
 
@@ -27,15 +29,28 @@ class _DispState extends State<Disp> {
         padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
         child:Column(
         children:[
-          Text(
-            "Choose what to donate",
-            style: TextStyle(
-              color: Colors.orange[800],
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+          FutureBuilder(
+              future:  "Choose what to donate".translate(to: globals.lang).then((value) =>  value.text),
+              builder: (BuildContext context, AsyncSnapshot<String> text) {
 
-            ),
-          ),
+                if(text.hasData){ return  Text(text.data.toString(),style: TextStyle(
+                  color: Colors.orange[800],
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+
+                ),);}
+
+                return Text(
+                  "Choose what to donate",
+                  style: TextStyle(
+                    color: Colors.orange[800],
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+
+                  ),
+                );
+              }),
+
 
           SizedBox(height: 20),
          Expanded(child:
@@ -61,12 +76,16 @@ class _DispState extends State<Disp> {
                        child: Padding(
                         padding: EdgeInsets.all(6),
                         child: ElevatedButton(
-                          child: Text(snapshot.data!.docs[i].id,
-                          style: TextStyle(fontSize: 24),
-                          ),
+                          child: FutureBuilder(
+                              future:  snapshot.data!.docs[i].id.translate(to: globals.lang).then((value) =>  value.text),
+                              builder: (BuildContext context, AsyncSnapshot<String> text) {
+                               if(text.hasData){
+                                 return  Text(text.data.toString());}
+                               return Text(snapshot.data!.docs[i].id);
+                              }),
                           style: ElevatedButton.styleFrom(
                             primary: Colors.pink,
-                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                             shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(10.0),
 

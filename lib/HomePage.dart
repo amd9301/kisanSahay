@@ -13,8 +13,9 @@ import 'package:kisan_sahay/widgets/titlebar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:translator/translator.dart';
+import 'package:kisan_sahay/globals.dart' as globals;
 
-import 'Need.dart';
 import 'pages/yourUploads.dart';
 class HomePage extends StatefulWidget {
   // final String url;
@@ -33,6 +34,10 @@ class _HomePageState extends State<HomePage> {
     );
 
   }*/
+
+  // final prefs = await SharedPreferences.getInstance();
+
+
   bool signedout=false;
   FirebaseAuth _auth=FirebaseAuth.instance;
   Future<Null> _signOut() async {
@@ -48,9 +53,11 @@ class _HomePageState extends State<HomePage> {
   }
   @override
   Widget build(BuildContext context) {
+
     user!.reload();
     return MaterialApp(
       home: Scaffold(
+        resizeToAvoidBottomInset: true,
         backgroundColor: Colors.white,
         drawer: Drawer(
           child: ListView(
@@ -79,7 +86,13 @@ class _HomePageState extends State<HomePage> {
                 )
               ),
               new ListTile(
-                title: new Text('Nearby Users'),
+                title:  (globals.lang=="en") ? Text("Nearby Users") : FutureBuilder(
+                      future:  "nearby users".translate(to: globals.lang).then((value) =>  value.text),
+                builder: (BuildContext context, AsyncSnapshot<String> text) {
+                  if(text.hasData){
+                    return  Text(text.data.toString());}
+                  return Text("Nearby Users");
+                }),
                 onTap: () {
                   Navigator.push(context,
                       new MaterialPageRoute(builder: (BuildContext context)=> new NearbyMap())
@@ -87,7 +100,13 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               new ListTile(
-                title: new Text('Donate Machinery'),
+                title: (globals.lang=="en") ? Text("Donate Machinery") : FutureBuilder(
+                    future:  "Donate Machinery".translate(to: globals.lang).then((value) =>  value.text),
+                    builder: (BuildContext context, AsyncSnapshot<String> text) {
+                      if(text.hasData){
+                        return  Text(text.data.toString());}
+                      return Text("Nearby Users");
+                    }),
                 onTap: () {
                   Navigator.push(context,
                   new MaterialPageRoute(builder: (BuildContext context)=> new Disp())
@@ -95,7 +114,13 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               new ListTile(
-                title: new Text('Need Machinery'),
+                title:  (globals.lang=="en") ? Text("Need Machinery") : FutureBuilder(
+                    future:  "Needed machinery".translate(to: globals.lang).then((value) =>  value.text),
+                    builder: (BuildContext context, AsyncSnapshot<String> text) {
+                      if(text.hasData){
+                        return  Text(text.data.toString());}
+                      return Text("Need Machinery");
+                    }),
                 onTap: () {
                   Navigator.push(context,
                       new MaterialPageRoute(builder: (BuildContext context)=> new CategoryListPage())
@@ -103,7 +128,13 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               new ListTile(
-                title: new Text('Cart'),
+                title:  (globals.lang=="en") ? Text("Cart") : FutureBuilder(
+                  future:  "Cart".translate(to: globals.lang).then((value) =>  value.text),
+                  builder: (BuildContext context, AsyncSnapshot<String> text) {
+                  if(text.hasData){
+                  return  Text(text.data.toString());}
+                  return Text("Cart");
+              }),
                 onTap: () {
                   Navigator.push(context,
                       new MaterialPageRoute(builder: (BuildContext context)=> new Cart())
@@ -111,11 +142,23 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               new ListTile(
-                title: new Text('Your Orders'),
+                title:  (globals.lang=="en") ? Text("Your Oders") : FutureBuilder(
+                    future:  "Your Oders".translate(to: globals.lang).then((value) =>  value.text),
+                    builder: (BuildContext context, AsyncSnapshot<String> text) {
+                      if(text.hasData){
+                        return  Text(text.data.toString());}
+                      return Text("Your Oders");
+                    }),
                 onTap: () {},
               ),
               new ListTile(
-                title: new Text('Your Uploads'),
+                title:  (globals.lang=="en") ? Text("Your Uploads") : FutureBuilder(
+                    future:  "Your Uploads".translate(to: globals.lang).then((value) =>  value.text),
+                    builder: (BuildContext context, AsyncSnapshot<String> text) {
+                      if(text.hasData){
+                        return  Text(text.data.toString());}
+                      return Text("Your Uploads");
+                    }),
                 onTap: () {
                   Navigator.push(context,
                       new MaterialPageRoute(builder: (BuildContext context)=> new YourUploads())
@@ -123,7 +166,13 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               new ListTile(
-                title: new Text('Sign Out'),
+                title: (globals.lang=="en") ? Text("Sign Out") : FutureBuilder(
+                    future:  "Sign Out".translate(to: globals.lang).then((value) =>  value.text),
+                    builder: (BuildContext context, AsyncSnapshot<String> text) {
+                      if(text.hasData){
+                        return  Text(text.data.toString());}
+                      return Text("Sign Out");
+                    }),
                 onTap: () {
                   //_signOut();
                   _signOut();
@@ -157,6 +206,23 @@ class _HomePageState extends State<HomePage> {
                       );
                     },),
               ),
+            ),
+            Container(
+              margin: EdgeInsets.only(right: 10),
+              padding: EdgeInsets.fromLTRB(0,0,0,0),
+              child: ClipOval(
+                  child: IconButton(
+                    icon: Icon(Icons.translate, color: Colors.white),
+                    onPressed: () {
+                      setState(() {
+                        if(globals.lang=="te")globals.lang="en";
+                        else globals.lang="te";
+                        print(globals.lang);
+                        // changelang();
+                      });
+                    },
+                  ),
+              ),
             )
           ],
         ),
@@ -185,49 +251,62 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     SizedBox(height: 20.0),
-                    Text(
-                      "Select your action",
-                      style: TextStyle(
-                        color: Colors.pink,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                     FutureBuilder(
+                        future:  "Choose Your action".translate(to: globals.lang).then((value) =>  value.text),
+                        initialData: "Choose your Action",
+                        builder: (BuildContext context, AsyncSnapshot<String> text) {
+                            return  Text(text.data.toString(),style: TextStyle(
+                              color: Colors.pink,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
 
-                      ),
-                    ),
+                            ),);
+                        }),
 
-                    SizedBox(height: 20),
+                                       SizedBox(height: 20),
 
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.amber, // background
-                            onPrimary: Colors.white, // foreground
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
-
-                          ),
-                          child: Text(
-                            " Need Machinery  ", style: TextStyle(fontSize: 20),),
+                        MaterialButton(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          color: Colors.amber ,
+                          textColor: Colors.white,
+                          minWidth: 250,
+                          hoverElevation: 10,
+                          //
+                          child:
+                          FutureBuilder(
+                              future:  "Donate Machinery".translate(to: globals.lang).then((value) =>  value.text),
+                              initialData: "Donate Machinery",
+                              builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                return  Text(text.data.toString(),style:TextStyle(fontSize: 20));
+                              }),
                           onPressed: () {Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => CategoryListPage()),
+                            MaterialPageRoute(builder: (context) => Disp()),
                           );},
 
                         ),
                         SizedBox(height: 10),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
-                            primary: Colors.amber, // background
-                            onPrimary: Colors.white, // foreground
-                          ),
-                          child: Text("Donate Machinery", style: TextStyle(fontSize: 20),),
+                        MaterialButton(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          color: Colors.amber ,
+                          minWidth: 250,
+                          textColor: Colors.white,
+                        hoverElevation: 10,
+                        //
+                          child: FutureBuilder(
+                              future:  "Needed Machinery".translate(to: globals.lang).then((value) =>  value.text),
+                              initialData: "Need Machinery",
+                              builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                return  Text(text.data.toString(),style:TextStyle(fontSize: 20));
+                              }),
                           onPressed: () {Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Disp()),
+                            MaterialPageRoute(builder: (context) => CategoryListPage()),
                           );},
 
                         ),

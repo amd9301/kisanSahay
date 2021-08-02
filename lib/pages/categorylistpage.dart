@@ -11,7 +11,8 @@ import '../Start.dart';
 import 'Personal.dart';
 import 'Predonate.dart';
 import 'cart.dart';
-
+import 'package:translator/translator.dart';
+import 'package:kisan_sahay/globals.dart' as globals;
 class CategoryListPage extends StatefulWidget {
 
 
@@ -133,12 +134,17 @@ class _CategoryListPageState extends State<CategoryListPage> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(top: 10.0,bottom: 10.0),
-                      child: Text('Select a category',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 24,
-                        ),),
+                      child:FutureBuilder(
+                          future:  "Select a Category".translate(to: globals.lang).then((value) =>  value.text),
+                          initialData:"Select a Category",
+                          builder: (BuildContext context, AsyncSnapshot<String> text) {
+                            return  Text(text.data.toString(),textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 24,
+                                ));
+                          })
+
                     ),
 
                     Expanded(

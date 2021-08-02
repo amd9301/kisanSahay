@@ -42,7 +42,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
       {
         showLoading=false;
       });
-      if(authCredential?.user !=null)
+      if(authCredential.user !=null)
         {
           Navigator.push(context,MaterialPageRoute(builder: (context)=> HomePage()));
         }

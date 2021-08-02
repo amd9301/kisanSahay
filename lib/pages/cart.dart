@@ -7,7 +7,8 @@ import 'package:kisan_sahay/widgets/categorycard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'Predonate.dart';
-
+import 'package:translator/translator.dart';
+import 'package:kisan_sahay/globals.dart' as globals;
 class Cart extends StatefulWidget {
   const Cart({Key? key}) : super(key: key);
 
@@ -82,12 +83,16 @@ class _CartState extends State<Cart> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(top: 10.0,bottom: 10.0),
-                      child: Text('Your cart',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 24,
-                        ),),
+                      child:FutureBuilder(
+                          future: 'Your cart'.translate(to: globals.lang).then((value) =>  value.text),
+                          initialData:'Your cart',
+                          builder: (BuildContext context, AsyncSnapshot<String> text) {
+                            return  Text(text.data.toString(), textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 24,
+                              ),);
+                          }),
                     ),
 
                     Expanded(

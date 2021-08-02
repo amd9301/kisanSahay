@@ -10,7 +10,8 @@ import 'package:path/path.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:intl/intl.dart';
 
-
+import 'package:translator/translator.dart';
+import 'package:kisan_sahay/globals.dart' as globals;
 class Donate extends StatefulWidget {
   final String typename;
   const Donate({Key? key,required this.typename}) : super(key: key);
@@ -87,6 +88,7 @@ class _DonateState extends State<Donate>
   }
   @override
   Widget build(BuildContext context) {
+    String header= "Donate the "+ typename +" you have";
     return Scaffold(
       backgroundColor: Colors.white,
       appBar:TitleBar(),
@@ -96,15 +98,18 @@ class _DonateState extends State<Donate>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                "Donate the "+typename+" you have",
-                style: TextStyle(
-                  color: Colors.pink,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+              FutureBuilder(
+                  future:  header.translate(to: globals.lang).then((value) =>  value.text),
+                  initialData: "Donate the "+typename+" you have",
+                  builder: (BuildContext context, AsyncSnapshot<String> text) {
+                    return  Text(text.data.toString(),style: TextStyle(
+                      color: Colors.pink,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
 
-                ),
-              ),
+                    ),);
+                  }),
+
           SizedBox(height: 10,),
           (done != false)
               ? Image.file(_imagefile,
@@ -113,7 +118,12 @@ class _DonateState extends State<Donate>
           fit: BoxFit.fill,) : Image.asset('assets/images/upload.png'),
               SizedBox(height: 30.0,),
               ElevatedButton(
-                child: Text('choose image'),
+                child: FutureBuilder(
+                    future:  "Choose Image".translate(to: globals.lang).then((value) =>  value.text),
+                    initialData:"Choose Image",
+                    builder: (BuildContext context, AsyncSnapshot<String> text) {
+                      return  Text(text.data.toString());
+                    }),
                 onPressed: pickImage,
               ),
               Container(
@@ -126,7 +136,7 @@ class _DonateState extends State<Donate>
 
                         child: TextFormField(
                           decoration: InputDecoration(
-                              labelText: 'Cost per day',
+                              labelText: "cost Per Day",
                               prefixIcon: Icon(Icons.money)
                           ),
                           keyboardType: TextInputType.number,
@@ -161,11 +171,16 @@ class _DonateState extends State<Donate>
 
                               ),),
 
-                              child: Text('Cancel', style: TextStyle(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white
-                              ),)),
+                              child:FutureBuilder(
+                                  future:  "Cancel".translate(to: globals.lang).then((value) =>  value.text),
+                                  initialData:"Cancel",
+                                  builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                    return  Text(text.data.toString(),style :TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white
+                                    ));
+                                  })),
                           SizedBox(width: 60,),
                           ElevatedButton(
                             onPressed:(){submit(context);},
@@ -175,11 +190,16 @@ class _DonateState extends State<Donate>
 
                             ),),
 
-                            child: Text('Submit', style: TextStyle(
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white
-                            ),)),
+                            child: FutureBuilder(
+                                future:  "Submit".translate(to: globals.lang).then((value) =>  value.text),
+                                initialData:"Submit",
+                                builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                  return  Text(text.data.toString(),style :TextStyle(
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white
+                                  ));
+                                })),
                     ],
                   ),
 

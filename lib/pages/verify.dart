@@ -6,7 +6,8 @@ import 'package:kisan_sahay/pages/Donate.dart';
 import 'package:kisan_sahay/widgets/categorybottombar.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:translator/translator.dart';
+import 'package:kisan_sahay/globals.dart' as globals;
 class Verify extends StatefulWidget {
   const Verify({Key? key}) : super(key: key);
 
@@ -56,15 +57,16 @@ Widget build(BuildContext context) {
                   ),
 
                   SizedBox(height: 20.0),
-                   Text("An email has been sent to your mail for verification, Please check your inbox",
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 20,
-
-
-                      ),
-                  ),
-                  SizedBox(height: 20.0),
+                  FutureBuilder(
+                      future:  "An email has been sent to your mail for verification, Please check your inbox".translate(to: globals.lang).then((value) =>  value.text),
+                      initialData:"An email has been sent to your mail for verification, Please check your inbox",
+                      builder: (BuildContext context, AsyncSnapshot<String> text) {
+                        return  Text(text.data.toString(), style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 20,
+                        ),);
+                      }),
+                     SizedBox(height: 20.0),
 
                   ElevatedButton(
                       onPressed:(){

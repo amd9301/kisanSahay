@@ -4,7 +4,8 @@ import 'package:kisan_sahay/widgets/titlebar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart'as UrlLauncher;
-
+import 'package:translator/translator.dart';
+import 'package:kisan_sahay/globals.dart' as globals;
 class Showcart extends StatefulWidget {
   final   String id ;
   final   String url ;
@@ -136,29 +137,39 @@ class _ShowcartState extends State<Showcart> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text('Details of the Owner:',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                                fontSize :23,
-                            ),
-                          ),
-                          
+                          FutureBuilder(
+                              future: 'Details of the Owner:'.translate(to: globals.lang).then((value) =>  value.text),
+                              initialData:'Details of the Owner:',
+                              builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                return  Text(text.data.toString(),style: TextStyle(
+                                  fontSize: 23,
+                                  fontWeight: FontWeight.bold,
+                                ),);
+                              }),
                           SizedBox(height: 20),
                           Padding(
                             padding: EdgeInsets.fromLTRB(20, 0,0,0),
                             child: Row(
                               children: [
-                                Text('Name',style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                ),),
+                                FutureBuilder(
+                                    future: 'Name'.translate(to: globals.lang).then((value) =>  value.text),
+                                    initialData:'Name',
+                                    builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                      return  Text(text.data.toString(),style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                      ),);
+                                    }),
                                 SizedBox(width: 30,),
-                                Text(name,
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                  ),),
+                                FutureBuilder(
+                                    future: name.translate(to: globals.lang).then((value) =>  value.text),
+                                    initialData:name,
+                                    builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                      return  Text(text.data.toString(),style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                      ),);
+                                    }),
 
                               ],
                             ),
@@ -168,17 +179,26 @@ class _ShowcartState extends State<Showcart> {
                             padding: EdgeInsets.fromLTRB(20, 0,0,0),
                             child: Row(
                               children: [
-                                Text('Location',style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                ),),
+                                FutureBuilder(
+                                    future: 'Location'.translate(to: globals.lang).then((value) =>  value.text),
+                                    initialData:'Location',
+                                    builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                      return  Text(text.data.toString(),style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                      ),);
+                                    }),
+
                                 SizedBox(width: 30,),
-                                Text(loc,
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                  ),),
+                                FutureBuilder(
+                                    future: loc.translate(to: globals.lang).then((value) =>  value.text),
+                                    initialData:loc,
+                                    builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                      return  Text(text.data.toString(),style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                      ),);
+                                    }),
                               ],
                             ),
                           ),
@@ -187,25 +207,31 @@ class _ShowcartState extends State<Showcart> {
                             padding: EdgeInsets.fromLTRB(20, 0,0,0),
                             child: Row(
                               children: [
-                                Text('Contact Details',style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                ),),
+                                FutureBuilder(
+                                    future: 'Contact Details'.translate(to: globals.lang).then((value) =>  value.text),
+                                    initialData:'Contact Details',
+                                    builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                      return  Text(text.data.toString(),style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                      ),);
+                                    }),
                                 SizedBox(width: 30,),
-                                Text(phn,
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                  ),),
+                                FutureBuilder(
+                                    future: phn.toString().translate(to: globals.lang).then((value) =>  value.text),
+                                    initialData:phn.toString(),
+                                    builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                      return  Text(text.data.toString(),style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                      ),);
+                                    }),
                               ],
                             ),
                           ),
                           Padding(
                             padding: EdgeInsets.all(20),
-                            child: Row(
-                              children: [
-                                ElevatedButton(
+                               child: ElevatedButton(
                                     onPressed:(){
                                       UrlLauncher.launch("tel:"+phn);
                                       /* Navigator.push(context,
@@ -221,13 +247,18 @@ class _ShowcartState extends State<Showcart> {
 
                                     ),),
 
-                                    child: Text(' Rent Now  ', style: TextStyle(
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),)
-                                ),
-                                SizedBox(width: 50,),
+                                    child: FutureBuilder(
+                                        future: 'Rent Now'.translate(to: globals.lang).then((value) =>  value.text),
+                                        initialData:'Rent Now',
+                                        builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                          return  Text(text.data.toString(), style: TextStyle(
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white
+                                          ));
+                                        }),
+                                ),),
+                                SizedBox(height: 10,),
                                 ElevatedButton(
                                     onPressed:remove,
                                     style: ElevatedButton.styleFrom(primary: Colors
@@ -236,14 +267,18 @@ class _ShowcartState extends State<Showcart> {
 
                                     ),),
 
-                                    child: Text('Remove', style: TextStyle(
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),))
-                              ],
-                            ),
-                          )
+                                    child: FutureBuilder(
+                                  future: 'Remove'.translate(to: globals.lang).then((value) =>  value.text),
+                                  initialData:'Remove',
+                                  builder: (BuildContext context, AsyncSnapshot<String> text) {
+                                  return  Text(text.data.toString(), style: TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white
+                                  ));
+                                  }),)
+
+
 
                         ],
                       ),

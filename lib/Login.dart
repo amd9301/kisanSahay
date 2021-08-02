@@ -7,7 +7,8 @@ import 'HomePage.dart';
 import 'package:kisan_sahay/pages/verify.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:translator/translator.dart';
+import 'package:kisan_sahay/globals.dart' as globals;
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -23,8 +24,24 @@ class _LoginState extends State<Login> {
   String _password = '';
   bool _obscureText = true;
   bool _isLoggedIn=false;
+  String terror='email or password doesnt match';
+  String temail='email';
+  String tpass='password';
+  String tsubmit='submit';
   // final prefs = await SharedPreferences.getInstance();
+  @override
+  void initState()  {
+    temail.translate(to: globals.lang).then((value){setState(() {temail=value.text;});});
+    tpass.translate(to: globals.lang).then((value){setState(() {tpass=value.text;});});
+    terror.translate(to: globals.lang).then((value){setState(() {terror=value.text;});});
+    tsubmit.translate(to: globals.lang).then((value){setState(() {tsubmit=value.text;});});
 
+    // sreg.translate(to: 'te');
+    // sphnone.translate(to: 'te');
+    super.initState();
+
+// This will print "initState() ---> MainPage"
+  }
   Future<void> signIn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('isLoggedin', false);
@@ -32,10 +49,9 @@ class _LoginState extends State<Login> {
     try {
       await _auth.signInWithEmailAndPassword(
           email: _email, password: _password);
-        Navigator.pushReplacement(
-          context,
+      Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => HomePage()),
-        );
+              (Route<dynamic> route) => false);
         setState(() {
           loginfail = false;
           prefs.setBool('isLoggedin', true);
@@ -75,6 +91,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    final translator = GoogleTranslator();
     return Scaffold(
       resizeToAvoidBottomInset: true,
       //physics: ClampingScrollPhysics(parent: NeverScrollableScrollPhysics()),
@@ -102,7 +119,7 @@ class _LoginState extends State<Login> {
 
                         child: TextFormField(
                           decoration: InputDecoration(
-                              labelText: 'Email',
+                              labelText: temail,
                               prefixIcon: Icon(Icons.email)
                           ),
                           validator: (value) {
@@ -123,8 +140,8 @@ class _LoginState extends State<Login> {
                       Container(
                         child: new TextFormField(
                           decoration:  InputDecoration(
-                              labelText: 'Password',
-                              errorText: loginfail ? 'email or password doesnt match' : null,
+                              labelText: tpass,
+                              errorText: loginfail ? terror : null,
                               icon: const Padding(
                                   padding: const EdgeInsets.only(top: 15.0),
                                   child: const Icon(Icons.lock))),
@@ -149,7 +166,7 @@ class _LoginState extends State<Login> {
 
                           ),),
 
-                          child: Text('SUBMIT', style: TextStyle(
+                          child: Text(tsubmit, style: TextStyle(
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.white

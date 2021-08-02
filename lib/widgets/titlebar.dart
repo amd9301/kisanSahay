@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kisan_sahay/pages/cart.dart';
+import 'package:translator/translator.dart';
+import 'package:kisan_sahay/globals.dart' as globals;
 
 class TitleBar extends StatefulWidget implements PreferredSizeWidget{
 
@@ -29,7 +31,7 @@ class _TitleBarState extends State<TitleBar> {
         actions: [
           Container(
             margin: EdgeInsets.only(right: 10),
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.fromLTRB(0,0,0,0),
             child: ClipOval(
               child: Material(
                 child: IconButton(
@@ -40,7 +42,24 @@ class _TitleBarState extends State<TitleBar> {
                 ),
               ),
             ),
-          )
+          ),
+          // Container(
+          //   margin: EdgeInsets.only(right: 10),
+          //   padding: EdgeInsets.fromLTRB(0,0,0,0),
+          //   child: ClipOval(
+          //     child: IconButton(
+          //       icon: Icon(Icons.translate, color: Colors.green[600]),
+          //       onPressed: () {
+          //         setState(() {
+          //           if(globals.lang=="te")globals.lang="en";
+          //           else globals.lang="te";
+          //           print(globals.lang);
+          //           // changelang();
+          //         });
+          //       },
+          //     ),
+          //   ),
+          // )
         ],
       ),
     );
