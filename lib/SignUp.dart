@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kisan_sahay/HomePage.dart';
 import 'package:kisan_sahay/Login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,7 +20,7 @@ class _SignUpState extends State<SignUp> {
   // Define a key to access the form
   final _formKey = GlobalKey<FormState>();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  bool _obscureText = true;
   String _userEmail = '';
   String _userName = '';
   String _password = '';
@@ -32,6 +33,13 @@ class _SignUpState extends State<SignUp> {
     _latitide= position.latitude;
     return position.longitude;
   }
+
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
   // This function is triggered when the user press the "Sign Up" button
   void _trySubmitForm() async {
     final isValid = _formKey.currentState!.validate();
@@ -89,10 +97,13 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title:Text("Sign Up "),
+        ),
         resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(top: 50.0),
+            padding: const EdgeInsets.only(top: 30.0),
             child: Container(
 
                 color:Color(0xfff6fef6),
@@ -149,7 +160,21 @@ class _SignUpState extends State<SignUp> {
 
                           /// Password
                           TextFormField(
-                            decoration: InputDecoration(labelText: 'Password',prefixIcon: Icon(Icons.lock)),
+                            decoration: InputDecoration(
+                                labelText: 'Password',
+                                prefixIcon: Icon(Icons.lock),
+                                suffixIcon:
+                                InkWell(
+                                  onTap:_toggle ,
+                                  child: Icon(
+                                    _obscureText
+                                        ? FontAwesomeIcons.eye
+                                        : FontAwesomeIcons.eyeSlash,
+                                    size: 15.0,
+                                    color: Colors.black,
+                                  ),
+                                )
+                            ),
                             obscureText: true,
                             validator: (value) {
                               if (value!.trim().isEmpty) {
@@ -168,7 +193,21 @@ class _SignUpState extends State<SignUp> {
                           /// Confirm Password
                           TextFormField(
                             decoration:
-                            InputDecoration(labelText: 'Confirm Password',prefixIcon: Icon(Icons.lock)),
+                            InputDecoration(
+                                labelText: 'Confirm Password',
+                                prefixIcon: Icon(Icons.lock),
+                                suffixIcon:
+                                InkWell(
+                                  onTap:_toggle ,
+                                  child: Icon(
+                                    _obscureText
+                                        ? FontAwesomeIcons.eye
+                                        : FontAwesomeIcons.eyeSlash,
+                                    size: 15.0,
+                                    color: Colors.black,
+                                  ),
+                                )
+                            ),
                             obscureText: true,
                             validator: (value) {
                               if(value!.isEmpty){
@@ -176,7 +215,7 @@ class _SignUpState extends State<SignUp> {
                               }
 
                               if (value != _password) {
-                                return 'Confimation password does not match the entered password';
+                                return "Passwords doesn't match";
                               }
 
                               return null;
@@ -186,8 +225,10 @@ class _SignUpState extends State<SignUp> {
                           TextFormField(
                             keyboardType: TextInputType.number,
                             decoration:
-                            InputDecoration(labelText: 'Phone Number',prefixIcon: Icon(Icons.phone)),
-
+                            InputDecoration(
+                                labelText: 'Phone Number',
+                                prefixIcon: Icon(Icons.phone)
+                            ),
                             validator: (value) {
                               if(value!.isEmpty){
                                 return 'This field is required';
@@ -200,7 +241,9 @@ class _SignUpState extends State<SignUp> {
                           Container(
                             child: ElevatedButton(
                                 onPressed: _trySubmitForm,
-                                style: ElevatedButton.styleFrom(primary: Colors.green,shape: new RoundedRectangleBorder(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.green,shape:
+                                new RoundedRectangleBorder(
                                   borderRadius: new BorderRadius.circular(20.0),
 
                                 ),),
@@ -209,6 +252,7 @@ class _SignUpState extends State<SignUp> {
                                 ),)),
 
                           ),
+                          SizedBox(height: 20,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

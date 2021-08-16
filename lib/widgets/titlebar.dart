@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kisan_sahay/pages/cart.dart';
-import 'package:translator/translator.dart';
 import 'package:kisan_sahay/globals.dart' as globals;
 
 class TitleBar extends StatefulWidget implements PreferredSizeWidget{
@@ -23,10 +22,11 @@ class _TitleBarState extends State<TitleBar> {
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.green[600],
-            fontSize: 30.0,
+            fontSize: 25.0,
           ),),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
+
         iconTheme: IconThemeData(color:Colors.green[800], ),
         actions: [
           Container(
@@ -43,23 +43,24 @@ class _TitleBarState extends State<TitleBar> {
               ),
             ),
           ),
-          // Container(
-          //   margin: EdgeInsets.only(right: 10),
-          //   padding: EdgeInsets.fromLTRB(0,0,0,0),
-          //   child: ClipOval(
-          //     child: IconButton(
-          //       icon: Icon(Icons.translate, color: Colors.green[600]),
-          //       onPressed: () {
-          //         setState(() {
-          //           if(globals.lang=="te")globals.lang="en";
-          //           else globals.lang="te";
-          //           print(globals.lang);
-          //           // changelang();
-          //         });
-          //       },
-          //     ),
-          //   ),
-          // )
+          Container(
+            margin: EdgeInsets.only(right: 6),
+            padding: EdgeInsets.fromLTRB(0,0,0,0),
+            child: ClipOval(
+              child: IconButton(
+                icon: Icon(Icons.translate_rounded, color: Colors.green[600]),
+                onPressed: () {
+                  setState(() {
+                    if(globals.lang=="te")globals.lang="en";
+                    else globals.lang="te";
+                    print(globals.lang);
+                    // changelang();
+                  });
+                },
+              ),
+            ),
+          )
+
         ],
       ),
     );

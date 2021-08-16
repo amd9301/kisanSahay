@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kisan_sahay/models/category.dart';
 import 'package:translator/translator.dart';
 import 'package:kisan_sahay/globals.dart' as globals;
+
 class CategoryCard extends StatelessWidget {
   String url;
   String name;

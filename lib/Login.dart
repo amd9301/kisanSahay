@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kisan_sahay/reset.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'HomePage.dart';
 import 'package:kisan_sahay/pages/verify.dart';
@@ -68,6 +70,13 @@ class _LoginState extends State<Login> {
       });
     }
   }
+
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
   checkAuthentication() async
   {
     _auth.authStateChanges().listen((User? user) async {
@@ -93,8 +102,10 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     final translator = GoogleTranslator();
     return Scaffold(
+      appBar: AppBar(
+        title:Text("Login To Kisan Sahay"),
+      ),
       resizeToAvoidBottomInset: true,
-      //physics: ClampingScrollPhysics(parent: NeverScrollableScrollPhysics()),
 
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 35),
@@ -139,23 +150,68 @@ class _LoginState extends State<Login> {
                       ),
                       Container(
                         child: new TextFormField(
+                         // controller: _passwordController,
+                          obscureText: _obscureText,
                           decoration:  InputDecoration(
                               labelText: tpass,
                               errorText: loginfail ? terror : null,
-                              icon: const Padding(
-                                  padding: const EdgeInsets.only(top: 15.0),
-                                  child: const Icon(Icons.lock))),
+                              prefixIcon: Icon(Icons.lock_rounded),
+                            suffixIcon:
+                                    InkWell(
+                                     onTap:_toggle ,
+                                      child: Icon(
+                                        _obscureText
+                                            ? FontAwesomeIcons.eye
+                                            : FontAwesomeIcons.eyeSlash,
+                                        size: 15.0,
+                                        color: Colors.black,
+                                      ),
+                                    )
+                            /*IconButton(
+                              icon: Icon(Icons.remove_red_eye_rounded,
+                                color: this._obscureText ? Colors.blue : Colors.grey,
+                              ),
+
+                              onPressed: () {
+                                setState(() => _obscureText= !_obscureText
+
+                                );
+                              },
+                            )*/
+
+                          ),
+
                           validator: (val) =>
                           val!.length < 6 || val == null
                               ? 'Password too short.'
                               : null,
                           onChanged: (val) => _password = val,
-                          obscureText: _obscureText,
+                          //obscureText: _obscureText,
+
+
+
                         ),
                       ),
 
 
                       SizedBox(height: 20.0),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context,
+                              new MaterialPageRoute(builder: (BuildContext context)=> new Reset())
+                          );
+                        },
+                        child: Text(
+                          "Forgot Password ?",
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 16,
+                              decoration: TextDecoration.underline),
+                        ),
+                      ),
+
+                      SizedBox(height: 20.0),
+
                       ElevatedButton(
                           onPressed:() {
                             signIn();
@@ -175,7 +231,8 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              SizedBox(height: 20.0),
+
+
 
             ],
           ),

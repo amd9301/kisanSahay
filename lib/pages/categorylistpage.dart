@@ -106,7 +106,7 @@ class _CategoryListPageState extends State<CategoryListPage> {
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.green[600],
-              fontSize: 30.0,
+              fontSize: 24.0,
             ),),
           backgroundColor: Colors.transparent,
           elevation: 0.0,

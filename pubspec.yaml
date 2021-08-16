@@ -54,6 +54,7 @@ dependencies:
   flutter_native_splash: ^1.2.0
   cached_network_image: ^3.0.0
   shared_preferences: ^2.0.6
+  google_fonts: ^2.1.0
 
 
 dev_dependencies:
@@ -73,7 +74,7 @@ flutter_native_splash:
 
 # The following section is specific to Flutter.
 flutter:
-
+  generate: true
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

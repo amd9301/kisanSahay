@@ -6,12 +6,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kisan_sahay/widgets/titlebar.dart';
-import 'package:path/path.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:intl/intl.dart';
-
 import 'package:translator/translator.dart';
 import 'package:kisan_sahay/globals.dart' as globals;
+
 class Donate extends StatefulWidget {
   final String typename;
   const Donate({Key? key,required this.typename}) : super(key: key);
@@ -181,7 +180,7 @@ class _DonateState extends State<Donate>
                                         color: Colors.white
                                     ));
                                   })),
-                          SizedBox(width: 60,),
+                          SizedBox(width: 20,),
                           ElevatedButton(
                             onPressed:(){submit(context);},
                             style: ElevatedButton.styleFrom(primary: Colors

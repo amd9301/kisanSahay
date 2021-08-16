@@ -30,7 +30,7 @@ class _DispState extends State<Disp> {
         child:Column(
         children:[
           FutureBuilder(
-              future:  "Choose what to donate".translate(to: globals.lang).then((value) =>  value.text),
+              future:  "Select".translate(to: globals.lang).then((value) =>  value.text),
               builder: (BuildContext context, AsyncSnapshot<String> text) {
 
                 if(text.hasData){ return  Text(text.data.toString(),style: TextStyle(
@@ -41,7 +41,7 @@ class _DispState extends State<Disp> {
                 ),);}
 
                 return Text(
-                  "Choose what to donate",
+                  "Select the Category",
                   style: TextStyle(
                     color: Colors.orange[800],
                     fontSize: 24,
