@@ -120,7 +120,7 @@ class _StartState extends State<Start> {
               ] ,
                 ),
             ),
-              Text("OR",style:TextStyle(fontSize: 26,fontWeight: FontWeight.bold)),
+              /*Text("OR",style:TextStyle(fontSize: 26,fontWeight: FontWeight.bold)),
               ElevatedButton.icon(
                 icon: FutureBuilder(
                     future:  "Sign-In With Phone Number".translate(to: globals.lang).then((value) =>  value.text),
@@ -133,7 +133,7 @@ class _StartState extends State<Start> {
                   context,
                   MaterialPageRoute(builder: (context) => PhoneLogin()),
                 );},
-              )
+              )*/
             ],
           ),
         ),

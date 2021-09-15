@@ -13,6 +13,8 @@ import 'Predonate.dart';
 import 'cart.dart';
 import 'package:translator/translator.dart';
 import 'package:kisan_sahay/globals.dart' as globals;
+
+import 'map.dart';
 class CategoryListPage extends StatefulWidget {
 
 
@@ -62,6 +64,20 @@ class _CategoryListPageState extends State<CategoryListPage> {
                 onTap: () {
                   Navigator.push(context,
                       new MaterialPageRoute(builder: (BuildContext context)=> new HomePage())
+                  );
+                },
+              ),
+              new ListTile(
+                title:  (globals.lang=="en") ? Text("Nearby Users") : FutureBuilder(
+                    future:  "nearby users".translate(to: globals.lang).then((value) =>  value.text),
+                    builder: (BuildContext context, AsyncSnapshot<String> text) {
+                      if(text.hasData){
+                        return  Text(text.data.toString());}
+                      return Text("Nearby Users");
+                    }),
+                onTap: () {
+                  Navigator.push(context,
+                      new MaterialPageRoute(builder: (BuildContext context)=> new NearbyMap())
                   );
                 },
               ),

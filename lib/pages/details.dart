@@ -284,7 +284,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                         ));
                                       }),
                               ),),
-                              SizedBox(height: 10,),
+                              SizedBox(height: 3,),
                                ElevatedButton(
                                   onPressed:addto,
                                   style: ElevatedButton.styleFrom(primary: Colors

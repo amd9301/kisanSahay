@@ -43,7 +43,7 @@ class _TitleBarState extends State<TitleBar> {
               ),
             ),
           ),
-          Container(
+          /*Container(
             margin: EdgeInsets.only(right: 6),
             padding: EdgeInsets.fromLTRB(0,0,0,0),
             child: ClipOval(
@@ -59,7 +59,7 @@ class _TitleBarState extends State<TitleBar> {
                 },
               ),
             ),
-          )
+          )*/
 
         ],
       ),
